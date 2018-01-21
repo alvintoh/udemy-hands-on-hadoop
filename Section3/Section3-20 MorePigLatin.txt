@@ -1,0 +1,41 @@
+#Pig Latin: Diving Deeper
+#Things you can do to a relation
+
+LOAD STORE DUMP
+- STORE ratings INTO 'outRatings' USING Pigstorage(':');
+
+FILTER DISTINCT FOREACH/GENERATE MAPREDUCE STREAM SAMPLE
+
+JOIN COGROUP GROUP CROSS CUBE
+
+ORDER RANK LIMIT
+
+UNION SPLIT
+
+#Diagnostics
+
+DESCRIBE
+
+EXPLAIN
+
+ILLUSTRATE
+
+#UDF -> User Defined Functions
+
+REGISTER
+
+DEFINE
+
+IMPORT
+
+#Some other functions and loaders
+
+AVG CONCAT COUNT MAX MIN SIZE SUM
+
+PigStorage
+TextLoader
+JsonLoader
+AvroStorage
+ParquetLoader
+OrcStorage
+HBaseStorage

@@ -1,0 +1,80 @@
+#Writing a Pig Script with relations named "rating" with a given schema
+ratings = LOAD '/user/maria_dev/ml-100k/u.data' AS (user:int, movieID:int, rating:int, ratingTime:int)
+
+#This creates a relation named "ratings" with a given schema.
+#(660,229,2,891406212)
+
+#Use PigStorage if you need a different delimiter
+metadata = LOAD '/user/maria_dev/ml-100k/u.item' USING PigStorage('|') AS (movieID:int, movieTitle:chararray,releaseDate:chararray, videoRelease:chararray,imdbLink:chararray);
+
+#DUMP function is used to display results to the screen
+
+DUMP metadata;
+
+#The data looks like this
+#(1, Toy Story (1995),01-Jan-1995,,http://us.imdb.com/M/title-exact?Toy%20Story%20(1995))
+
+#Anything that is not part of our explicit data just gets discarded
+
+#Creating a relation from another relation; FOREACH / GENERATE
+metadata = LOAD '/user/maria_dev/ml-100k/u.item' USING PigStorage('|') AS (movieID:int, movieTitle:chararray,releaseDate:chararray, videoRelease:chararray,imdbLink:chararray);
+
+nameLookup = FOREACH metadata GENERATE movieID, movieTitle, ToUnixTime (ToDate(releaseDate, 'dd-MMM-yyyy')) AS releaseTime;
+
+#(1, Toy Story (1995),01-Jan-1995,,http://us.imdb.com/M/title-exact?Toy%20Story%20(1995)) -> (1, Toy Story(1995),788918400)
+
+#Group By
+
+ratingsByMovie = GROUP ratings by movieID;
+DUMP ratingsByMovie;
+
+#(1{(807,1,4,892528231),(554,1,3876231938)})
+
+avgRatings = FOREACH ratingsByMovie GENERATE group AS movieID, AVG(ratings.rating) AS avgRating;
+
+DUMP avgRatings;
+
+#(1,3.8783185840707963)
+
+DESCRIBE ratings;
+DESCRIBE ratingsByMovie;
+DESCRIBE avgRatings;
+
+#rating: {userID: int,movieID: int, rating: int, ratingTime: int}
+#ratingsByMovie: {group: int,ratings: {(userID: int,movieID: int,ratingTime:int)}}
+#avgRatings: {movieID: int,avgRating: double}
+
+FILTER
+
+fiveStarMovies = FILTER avgRatings BY avgRating > 4.0;
+
+#(12, 4.385767790262173)
+
+JOIN
+
+DESCRIBE fiveStarMovies;
+DESCRIBE nameLookup;
+fiveStarsWithData = JOIN fiveStarmOVIES By movieID, nameLookup by movieID;
+DESCRIBE fiveStarsWithData;
+DUMP fiveStarsWithData;
+
+#(12,4.385767790262173, 12, Usual Suspects, The (1995), 8083358400)
+
+ORDER BY
+oldestFiveStarMovies = ORDER fiveStarsWithData BY nameLookup::releaseTime;
+DUMP oldestFiveStarMovies;
+
+#(493, 4.15,493, Thin Man, The (1934),-1136073600)
+
+#Can run faster using Tez Acylic directed-acyclic-graph, which analyzed the relationships each of the data have with one another and makes it run faster
+
+
+
+
+
+
+
+
+
+
+
