@@ -1,30 +1,30 @@
-#Getting to root and change the password
+# Getting to root and change the password
 su root
 
-#When you first logged in, the password is hadoop, so type it twice and change to a password you can remember
+# When you first logged in, the password is hadoop, so type it twice and change to a password you can remember
 
-#If you see the #sign beside the user, it means u are successfully logged in as root user
+# If you see the #sign beside the user, it means u are successfully logged in as root user
 su root (To log in as root user first before you can install the packages)
 
-#Installing pip
+# Installing pip
 yum install python-pip
 
-#Installing mrjob for python
+# Installing mrjob for python
 pip install mrjob==0.5.11
 
-#Installing nano text editor
+# Installing nano text editor
 yum install nano
 
-#Downloading the ml-100k u.data for our MapReduce Job
+# Downloading the ml-100k u.data for our MapReduce Job
 wget http://media.sundog-soft.com/hadoop/ml-100k/u.data
 
-#Downloading the python script for MapReduce Job
+# Downloading the python script for MapReduce Job
 wget http://media.sundog-soft.com/hadoop/RatingsBreakdown.py
 
-#Run locally with mrjob
+# Run locally with mrjob
 python RatingsBreakdown.py u.data
 
-#Run with Hadoop
+# Run with Hadoop
 python RatingsBreakdown.py -r hadoop --hadoop-streaming-jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar u.data
 
 

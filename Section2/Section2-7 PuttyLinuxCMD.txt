@@ -1,27 +1,27 @@
-#login into PUTTY through maria_dev@127.0.0.1 and password: maria_dev@127.0.0.1
+# login into PUTTY through maria_dev@127.0.0.1 and password: maria_dev@127.0.0.1
 
-#See what is in Hadoop file system
+# See what is in Hadoop file system
 hadoop fs -ls
 
-#Make a directory for ml-100k
+# Make a directory for ml-100k
 hadoop fs -mkdir ml-100k
 
-#Getting the file from the SunDog Website
+# Getting the file from the SunDog Website
 wget http://media.sundog-soft.com/hadoop/ml-100k/u.data
 
-#Copying the file from hadoop local to ml-100k folder
+# Copying the file from hadoop local to ml-100k folder
 hadoop fs -copyFromLocal u.data ml-100k/u.data
 
-#Seeing what is actually inside ml-100k folder
+# Seeing what is actually inside ml-100k folder
 hadoop fs -ls ml-100k
 
-#Remove the u.data inside ml-100k folder
+# Remove the u.data inside ml-100k folder
 hadoop fs -rm ml-100k/u.data
 
-#Remove ml-100k folder
+# Remove ml-100k folder
 hadoop fs -rmdir ml-100k
 
-#Exit the programme
+# Exit the programme
 exit
 
 
