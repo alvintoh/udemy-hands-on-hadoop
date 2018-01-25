@@ -1,5 +1,5 @@
-#Pig Latin: Diving Deeper
-#Things you can do to a relation
+# Pig Latin: Diving Deeper
+# Things you can do to a relation
 
 LOAD STORE DUMP
 - STORE ratings INTO 'outRatings' USING Pigstorage(':');
@@ -20,7 +20,7 @@ EXPLAIN
 
 ILLUSTRATE
 
-#UDF -> User Defined Functions
+# UDF -> User Defined Functions
 
 REGISTER
 
@@ -28,7 +28,7 @@ DEFINE
 
 IMPORT
 
-#Some other functions and loaders
+# Some other functions and loaders
 
 AVG CONCAT COUNT MAX MIN SIZE SUM
 

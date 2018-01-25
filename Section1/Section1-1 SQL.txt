@@ -1,4 +1,4 @@
-#SQL Script section 1.1
+# SQL Script section 1.1
 
 # Finding the most highly rated movies on IMDB using HADOOP and HIVE 
 SELECT movie_id, count(movie_id) as ratingCount

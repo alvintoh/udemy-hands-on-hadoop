@@ -1,6 +1,32 @@
-#Changing the specifications of Spark
+# Changing the specifications of Spark
 
-#Login to Ambari as admin, and go to services and select Spark2
+# Login to Ambari as admin, and go to services and select Spark2
+
+# Go to configs
+
+# Go to Advanced-log4j-properties
+
+# Set log4j.rootCategory=ERROR, console
+
+# Hit the restart button to restart all changes
+
+# Login in to Putty, and get type the following commands
+mkdir ml-100k
+cd ml-100k/
+wget http://media.sundog-soft.com/hadoop/ml-100k/u.item
+
+# To get to the home folder
+cd ..
+
+# Download the Spark zip
+wget http://media.sundog-soft.com/hadoop/Spark.zip
+unzip Spark.zip
+
+# Open the the spark py file
+less LowestRatedMovieSpark.py
+
+# To run the spark shell with your py file
+spark-submit LowestRatedMovieSpark.py
 
 
 

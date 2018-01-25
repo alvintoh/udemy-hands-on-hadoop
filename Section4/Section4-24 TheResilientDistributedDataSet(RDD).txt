@@ -1,5 +1,5 @@
-#This is done in python code
-#Creating RDD's
+# This is done in python code
+# Creating RDD's
 
 nums = parallelize([1, 2, 3, 4])
 sc.textFile("file://c:/users/frank/gobs=o=text.txt")
@@ -7,9 +7,9 @@ sc.textFile("file://c:/users/frank/gobs=o=text.txt")
 
 hiveCtx = HiveContext(sc) rows = hiveCtx.sql("SELECT name, age FROM users")
 
-#Can also create from JDBC, Cassandra, HBase, Elastisearch, JSON, sequence files, various compressed formats
+# Can also create from JDBC, Cassandra, HBase, Elastisearch, JSON, sequence files, various compressed formats
 
-#Transforming RDD's
+# Transforming RDD's
 
 map
 flatmap
@@ -18,21 +18,21 @@ distinct
 sample
 union, intersection, subtract, cartesian
 
-#map example
+# map example
 rdd = sc.parallelize([1, 2 ,3 , 4])
 
-#This is an example of Python functional programming
+# This is an example of Python functional programming
 
 squaredRDD = rdd.map(lambda x: x*x)
 
-#This yields 1, 4, 9, 16
+# This yields 1, 4, 9, 16
 
-#What's that lambda thing?
-#Many RDD methods accept a function as a parameter
+# What's that lambda thing?
+# Many RDD methods accept a function as a parameter
 
 rdd.map(lambda x: x*x)
 
-#Is the same thing as
+# Is the same thing as
 
 def squareIt(x):
 	return x*x
@@ -41,7 +41,7 @@ rdd.map(squareIt)
 
 #There, you now understand functional programming.
 
-#RDD actions
+# RDD actions
 collect
 count
 countByValue
@@ -50,4 +50,4 @@ top
 reduce
 ... and more ...
 
-#In Spark, Nothing actually happens in your driver program until an action is called!
+# In Spark, Nothing actually happens in your driver program until an action is called!
