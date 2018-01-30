@@ -1,0 +1,31 @@
+# What is Hive?
+# Hive Translates SQL queries to MapReduce or Tez jobs on your cluster
+
+# Why Hive?
+# Uses familiar SQL syntax (HiveQL)
+# Interactive
+# Scalable - works with "big data" on a cluster
+- Really most appriopriate for data warehouse applications
+
+# Easy OLAP queries - WAY easier than writing MapReduce in Java
+
+# Highly optimized
+
+# Highly extensible
+- User defined functions
+- Thrift server
+- JDBC / ODSBC server
+
+# Why not Hive?
+# High latency - not appropriate for OLTP (Online Transaction Processing)
+# Stores data de-normalized
+# SQL is limited in what it can do
+- Pig, Spark allows more complex stuff
+# No transactions
+# No record-level updates, inserts, deletes
+
+# HiveQL
+# Pretty much MySQL with some extensions
+# For example: views
+- Can store results of a query into a "view", which subsequent can queries use as a table
+# Allows you to specify how structured data is stored and partitioned
