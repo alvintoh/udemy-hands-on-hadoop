@@ -1,0 +1,60 @@
+# Hive have something calls Schema On Read
+
+# Hive maintains a "metastore" that imparts a structure you define on the unstructured data that is stored on HDFS etc.
+
+CREATE TABLE ratings ()
+	userID INT,
+	movieID INT,
+	rating INT,
+	time INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '/t'
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '${env:HOME}/ml-100k/u.data'
+OVERWRITE INTO TABLE ratings;
+
+# Where is the data?
+
+LOAD DATA
+# MOVES data from a distributed filesytem into Hive
+
+LOAD DATA LOCAL
+# COPIES data from your local filesystem into Hive
+
+Managed vs. External tables
+# External tables mean you are going to use Hive on this data here
+
+CREATE EXTERNAL TABLE IF NOT EXISTS ratings (
+	userID INT,
+	movieID INT,
+	rating INT,
+	time INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+LOCATION '/data/ml-100k/u.data';
+
+# Partitioning
+
+# You can store your data in partitioned subdirectories
+# Huge optimization if your queries are only for certain partitions
+
+CREATE TABLE customers (
+	name STRING,
+	address STRUCT <street: STRING, city: STRING, state: STRING, zip: INT> 
+)
+PARTITIONED BY (country STRING);
+
+../customers/country=CA/
+../customers/country=GB/
+
+# Ways to use Hive
+
+# Interactive via Hive > prompt / Command line interface (CLI)
+# Saved query files
+#	- hive -f/somepath/queries.hql
+# Through Ambari / Hue
+# Through JDBC/ODBC server
+# Through Thrift service
+# But remember, Hive is ot suitable for 
+
+

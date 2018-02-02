@@ -25,11 +25,32 @@ column4: epochseconds
 
 # Upload u.item from your local drive
 
-# Call the table bame names
+# Call the table names
 
 # Name the following columns as
 column1: movieID
 column2: title
+
+# Go to query the database in Hive
+CREATE VIEW TopMovieIDs AS
+SELECT movieID, count(movieID) as ratingCount
+FROM ratings
+GROUP BY movieID
+ORDER BY ratingCount DESC;
+
+SELECT n.title, ratingCount
+FROM topMovieIDs t JOIN names n ON t.movieID = n.movieID;
+
+# Hit Execute and you can see the movieName and Rating Count
+
+# Use this script if the view already exists in the script otherwise it will throw an error
+CREATE VIEW IF NOT EXISTS
+
+# To drop the view topmovieids
+DROP VIEW topmovieids;
+
+
+
 
 
 
