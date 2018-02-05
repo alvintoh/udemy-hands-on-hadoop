@@ -1,0 +1,59 @@
+# If you need to push things to the next level
+# Ability to very quickly answer very simplee questions
+# Need to do that with very large scale sets
+# NOSQL give up rich query languages, (Non relational databases), built to scale horizontally forever and very fast and resilient
+
+# Hbase built on top of Hadoop, fast transactional system to expose that data on your Hadoop to Web Application
+
+# NOSQL solves planet size data and having planet size transactions rates and scales
+
+# On the other hand, scaling my MYSQL relational databases RDBMS requires the following extreme measures
+
+- Denormalization (Split up your tables into a lot of tables to query a particular set of data, and it can look very ugly)
+
+- Caching Layers (Using memCachedD distributed in memory to prevent queries from even reaching the database for a lot of traffic, but cache could run into issues like not being synchronized with database)
+
+- Master/Slave setups (Multiple databases that handles reads and writes and the rest gets replicated to handles reads or writes but it requires a Database administrator)
+
+- Sharding (Split database into different ranges where it handles a range of keys, but setting it and adding new shards is a very painful process)
+
+- Materialized Views (Show views in the format that your services expects)
+
+- Removing stored procedures (Removing computing stuff that is actually part of a process of processing a query is an expensive thing to do, so you have to give that up)
+
+# RDBMS will in fact have support nightmares for that planet size queries and transactions rates
+
+# So do you really need RDBMS or SQL ?
+# So if you are working from websites like Amazon, Google where you are probably have very specific queries that you are looking for
+# So you don't really need a very rich query
+
+# Your high-transaction queries are probably pretty simple once de-normalized
+# A simple get / put API may meet your needs
+# Looking up values for a given key is simple, fast, ands scalable
+# You can do both
+
+# So using a RDBMS or NOSQL database?? The answer is about having the right tools in place for the right jobs
+
+# Using Sharding for a sample architecture for NOSQL Databases
+# It is simple and hashing the client id to look up the information for it to be return
+# Add more capacity by adding more shards and update the client & request router
+# This will also reduces the probability that the part will break at a very inconvenient time, as there are less moving parts
+
+# So use the right tool for the job
+# For analytic queries, Hive, Pig, Spark, etc. work great
+# Exporting data to MySQL is plenty fast for most applications too.
+# But if you work at giant scale - export your data to a non-relational database for fast and scalable serving of that data to web applications, etc.
+
+# The Beauty of the Hadoop cluster is that each part can scale up horizontally based on the technologies in place in them. 
+
+
+
+
+
+
+
+
+
+
+
+

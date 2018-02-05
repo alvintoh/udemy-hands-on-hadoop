@@ -1,0 +1,24 @@
+# Login in to the mysql instance
+mysql -u -root -p
+password: hadoop
+
+# Give all privileges to to the movielens database from local host to run Sqoop
+GRANT ALL PRIVILEGES ON movielens.* to ''@'localhost';
+
+exit
+
+# Connect through jdbc mysql to localhost movielens through the driver, importing only the movies table and running 1 mapper on your local machine
+
+# So if you are running on Hadoop cluster leave out the -m option to let Hadoop decide how many mappers to paralleze the operations
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies -m 1
+
+# Go to Ambari and go to files view, and you can see your files under user in HDFS
+
+# Before that be sure to delete your movies folder
+# Straight import into Hive warehouse through usage of --hive --import
+
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies -m 1 --hive-import
+
+# If Sqoophook error appears, ignore it if the movies data still gets imported to hive database
+
+# Kafka is another tool for distributing data to a cluster

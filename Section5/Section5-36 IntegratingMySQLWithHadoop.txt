@@ -1,0 +1,22 @@
+# MySQL is a popular, free relation database
+# Monolithic, can be used for Online Transaction Data Processing
+# Can import existing data in MySQL to Hadoop
+
+# Sqoop is meant to handle large data sets
+# Sqoop kicks off MapReduce jobs to handle importing or exporting your data
+
+# Sqoop: import data from MySQL to HDFS
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies
+
+-m 1 (Mean using 1 mapper to use)
+
+# Sqoop: import data from MySQL to Hive
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies --hive-import
+
+# Sqoop can do incremental imports
+# You can keep your relational database and Hadoop in sync
+--check-column and --last-value
+
+# Export data from Hive to MySQL
+sqoop export --connect jdbc:mysql://localhost/movielens -m 1 --driver com.mysql.jdbc.Driver --table exported_movies --export
+

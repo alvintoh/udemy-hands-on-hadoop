@@ -1,0 +1,51 @@
+# Go into MySQL in Hadoop instance using Putty
+# Login in through the username: maria_dev and password: maria_dev
+# Type the following command to access MySQL
+
+# Access the mysql instance in Hadoop with a password prompt
+mysql -u root -p
+
+# Create database movielens
+create database movielens;
+
+# Show the databases which you have created
+show databases
+
+# Type exit to exit
+exit
+
+# Download the movielens file from Sundog Website
+wget http://media.sundog-soft.com/hadoop/movielens.sql
+
+# Look through your downloaded files
+ls
+less movielens.sql
+
+# Setting the following configuration for your database
+SET NAMES 'utf8';
+
+SET CHARACTER SET utf8;
+
+use movielens;
+
+source movielens.sql
+
+show tables;
+
+# Take a peek of the first 10 rows in movies
+select * from movies limit = 10;
+
+describe ratings;
+
+# GROUP BY is used in conjunction with COUNT()
+# Show the count of movie ratings in MYSQL
+
+SELECT movies.title, COUNT(ratings.movie_id) AS ratingCount
+FROM movies
+INNER JOIN ratings
+ON movies.id = ratings.movie_id
+GROUP BY movies.title
+GROUP By ratingCount;
+
+
+

@@ -1,0 +1,43 @@
+# Import Data from Hive back to MYSQL
+# Find out where the file is located in Hive View
+
+# On Horton Works, it lives under the apps/hive directory
+# Go to Ambari and go to the following folders to find movies table file
+apps/hive/warehouse/movies
+
+# When you want to export data using Sqoop, you need to ensure the table exist before you can export into MYSQL
+
+# Go to mysql inside Hadoop
+mysql -u root -p
+Password: hadoop
+
+# Go to the Database movielens
+use movielens;
+
+# Create table for your exported movies data from Hive
+CREATE TABLE exported_movies (id INTEGER, title VARCHAR(255), releaseDate DATE);
+
+# Export data from the cluster into MYSQL
+# Connect using the com.sql.jdbc.Driver
+# Using mapper 1
+# Using com.sql.jdbc Driver 
+# Export into table exported_movies
+# From directory /apps/hive/warehouse/movies 
+# Delimited by fields 0001 (ASCII VALUE 1)
+
+ sqoop export --connect jdbc:mysql://localhost/movielens -m 1 --driver com.mysql.jdbc.Driver --table exported_movies --export-dir /apps/hive/warehouse/movies --input-fields-terminated-by '\0001'
+
+# Log back into MYSQL to take a peek
+mysql -u root -p
+Password: hadoop
+
+# Use database movielens;
+use movielens;
+
+# Take a peek into the exported_movies;
+select * from exported_movies limit 10;
+
+# You can see the data being imported into exported_movies;
+
+
+

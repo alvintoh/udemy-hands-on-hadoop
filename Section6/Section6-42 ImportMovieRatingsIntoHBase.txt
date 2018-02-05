@@ -1,0 +1,63 @@
+# Create a Hbase table for movie ratings by user
+# Then show we can quickly query it for individual users
+# Good example of sparse data
+
+For e.g 
+This particular UserID
+Column family: rating
+Rating: 50 (movieID)
+Value: 1
+
+Rating: 33 (movieID)
+Value: 5
+
+Rating: 223 (movieID)
+Value: 5
+
+# So we are going to run a REST service on top of HBase
+# The python client is going to run the REST service
+# The HBase is going to interact with HDFS
+
+# So you will need some sort of Python environment to do it
+
+# Firstly, you need to get HBase running
+# Set up the HBase REST port forwarding in VirtualBox 
+
+# Go to Hortonworks settings, Network, Port Forwarding Rules
+# Press the + button
+Put the name as HBase REST
+Host Port: 8000
+Guest Port: 8000
+
+# Login into Ambari localhost: 127.0.0.1 as admin
+password: password
+
+# Go to HBase and press start HBase server to launchHBase
+
+# Next go onto HDP PUTTY to launch the HBase REST server
+# Login in as user: maria_dev and password: maria_dev
+# Change to super user root and login with your password
+
+su root
+
+# To activate your port 8000 on HBase REST on maria_dev PUTTY
+/usr/hdp/current/hbase-master/bin/hbase-daemon.sh start rest -p 8000 --infoport 8001
+
+# Now port 8000 is activated for HBase REST
+
+# To install starbase package for your python
+pip install starbase
+
+# go to Putty and put HBase shell to access HBase
+
+type in list
+
+# You should be able to see ratings table created in HBase
+
+# Now to stop the Rest service in Daemon
+/usr/hdp/current/hbase-master/bin/hbase-daemon.sh stop rest
+
+
+
+
+

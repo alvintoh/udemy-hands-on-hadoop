@@ -1,0 +1,47 @@
+# Hbase is a non-relational, scalable database built on HDFS
+# It does not have SQL but it has API built into it
+# Based on Google's BigTable
+# Wide column store, maps 2 keys and timestamp into an associated arbitrary byte array.
+# Designed to scale horizontally, making it easy to add more machines to the system and automatically start taking advantage of those resources without any reconfiguration.
+
+# Features CRUD
+# Create, Read, Update, and Delete
+# There is no query languages, only CRUD api
+
+# HBase architecture automatically auto shards for u as your data grows
+
+# Features Zookeeper which can keep track of whose the current master server is, and if the master server goes down zookeeper can keep track of who to go next, and tell the rest 
+
+# HBase data model
+- Fast access to any given ROW
+- A ROW is referenced by a unique KEY
+- Each ROW has some small number of COLUMN FAMILIES
+- A COLUMN FAMILIES may contain arbitrary COLUMNS
+- You can have a very large number of COLUMNS in a COLUMN FAMILY
+- Each CELL can have many versions with given timestamps
+- Sparse data is A-OK - missing columns in a row consume no storage
+
+# For e.g Google wants to be able to track all the links that connects to a given web page.
+
+# Key : com.cnn.www
+# Keys are stored lexicographically within HBase
+# Try to minimize disk seeks, so you might have different http, www, different variations so you want to group them all together
+
+# So it is represented by Contents column family
+Contents:
+
+# Anchor column family
+Anchor:cnnsi.com
+Anchor:my.look.ca
+
+# Some ways to access HBase
+- HBase shell
+- Java API 
+	- Wrappers for Python, Scala, etc.
+- Spark, Hive, Pig
+- REST service
+- Thrift service
+- Avro service 
+# For Avro and Thrift, it represents data more compactly as it is stored in binary format, and transmit it more efficiently
+# The downside for Avro and Thrift, is that there is a tight coupling between the server and the client
+# The server and the client have to know what versions of Avro and Thrift to have maximum performance and prevent sync issues
