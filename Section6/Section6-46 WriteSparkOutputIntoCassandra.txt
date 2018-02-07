@@ -1,0 +1,32 @@
+# Exit out of cqlsh to go to maria_dev root
+exit
+
+# Download the script to integrate Spark output into Cassandra
+wget http://media.sundog-soft.com/hadoop/CassandraSpark.py
+
+# Tell Hadoop we are using Spark version 2.0
+export SPARK_MAJOR_VERSION=2
+
+# Look at CassandraSpark.py
+
+# To use CassandraSpark.py we need to specify datastax package and version and for scala 2.11 version before the python script
+spark-submit --packages datastax:spark-cassandra-connector:2.0.0-M2-s_2.11 CassandraSpark.py
+
+# To see if the data is in Hadoop cassandra
+cqlsh --cqlversion="3.4.0"
+
+# Use keyspace movielens first
+USE movielens;
+
+# See the top 10 users from users table
+SELECT * FROM users LIMIT 10;
+
+# Exit and shutdown Cassandra service
+exit
+service cassandara stop
+
+
+
+
+
+

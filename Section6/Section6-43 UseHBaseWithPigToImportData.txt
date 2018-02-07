@@ -1,0 +1,54 @@
+# Integrating Pig with HBase
+
+# Must ceate HBase table ahead of time
+# Your relation must have a unique key as its first column, followed by subsequent columns as you want them stored in HBase
+# USING clause allows you to store into an HBase table
+# Can work at scale - HBase is transactional on rows
+
+# There is a script that comes with HBase, it is called importTSV
+
+# Go into localhost ambari layout and login as maria_dev
+
+# Go to files view and upload u.user file to Hadoop in the following folder
+/user/maria_dev/ml-100k
+
+# You can see the u.user is delimited through pipe so we will be logging into Putty to create HBase table
+
+# Login into maria_dev root with your given password
+su root
+
+# go to HBase shell
+hbase shell
+
+# Create a new table users which contain the following column userinfo
+create 'users', 'usersinfo'
+
+# exit out of HBase
+
+# Download the following pig script to import data into HBase
+wget http://media.sundog-soft.com/hadoop/hbase.pig
+
+# Taking a look at the HBase pig script
+less hbase.pig
+
+# Running the pig script
+pig hbase.pig
+
+# Once data is imported, go back into HBase and scan the table to see your data
+scan 'users'
+
+# By default, each data in HBase automatically appends the timestamp so you can have multiple copies of the same data
+
+# If you want to clean up your table, have got to disable it first and after that drop it
+disable 'users'
+drop 'users'
+
+# Stop the HBase service once you are done in Ambari
+
+
+
+
+
+
+
+

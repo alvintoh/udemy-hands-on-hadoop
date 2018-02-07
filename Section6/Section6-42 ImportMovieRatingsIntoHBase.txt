@@ -54,10 +54,5 @@ type in list
 
 # You should be able to see ratings table created in HBase
 
-# Now to stop the Rest service in Daemon
+# Now to stop the REST service in Daemon
 /usr/hdp/current/hbase-master/bin/hbase-daemon.sh stop rest
-
-
-
-
-

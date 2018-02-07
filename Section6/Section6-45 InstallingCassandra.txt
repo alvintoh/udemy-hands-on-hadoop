@@ -1,0 +1,72 @@
+# Login into root on maria_dev
+su root
+
+# Finding the python version on Hadoop which is 2.6
+python -V
+
+# Type in yum update just to ensure all your packages are up till data
+yum update
+
+# Now install something call scl-utils
+# This give you the flexibility to switch between python versions
+yum install scl-utils
+
+# Next install the centOS specific compoenent that let me switch between Python releases
+yum install centos-release-scl-rh
+
+# Finally, you will install Python27
+yum install python27
+
+# Enable python27 without breaking it
+scl enable python27 bash
+
+# Check your python version again, should be Python 2.7 now
+python -V
+
+# Cannot yum install cassandra straight
+# CD into yum library repository first
+cd /etc/yum.repos.d
+
+# Open a command line editor vi with the file u call it datastax.repo
+vi datastax.repo
+
+# Type in the following command to store Apache Cassandra inside it
+# Before saving the file inside, ensure you have enough permissions by logging into root
+[datastax]
+name = DataStax Repo for Apache Cassandra
+baseurl = http://rpm.datastax.com/community
+enabled = 1
+gpgcheck = 0
+
+# To ensure the file is correctly saved inside the repository
+cat datastax.repo
+
+# Install the package for Cassandra
+yum install dsc30
+
+# Install the python dependencies for Cassandra
+pip install cqlsh
+
+# Starts up Cassandra
+service casssadra start
+
+# To start up the cqlsh server
+cqlsh
+
+# To allow cqlsh to only use the version 3.4.0
+cqlsh --cqlversion="3.4.0"
+
+# Create a keyspace in cassandra which is like database
+CREATE KEYSPACE movielens WITH replication = {'class': 'SimpleStrategy', 'replication_factor':'1'} AND durable_writes = true;
+
+# Go into movielens keyspace
+USE movielens;
+
+# Create table users
+CREATE TABLE users (user_id int, age int, gender text, occupation text, zip text, PRIMARY KEY (user_id));
+
+# To describe table users
+DESCRIBE TABLE users;
+
+# It is in fact empty if you select * from users;
+SELECT * FROM users;

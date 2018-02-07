@@ -1,0 +1,56 @@
+# Cassandra is a distributed database with no single point of failure
+
+# Cassandra - NoSQL with a twist
+# Unlike HBase, there is no master node at all - every node runs exactly the same software and performs the same functions
+
+# Data model is similiar to BigTable / HBase
+
+# It's non-relational, but has a limited CQL query language as its interface
+
+# Cassandra's Design Choices
+# The CAP Theorem 
+# CAP stands for Consistency, Availability, and Partition Tolerance
+# And partition-tolerance is a requirement with "big data," so you really only get to choose consistency and availability
+
+# Cassandra favours availability over consistency
+# It is "eventually consistent"
+# But you can specify your consistency requirements as part of your requests. So really it's "tunable consistency"
+
+# Tunable consistency -> How many nodes in my cluster needs to agree on a result, before I can accept my answer
+# You can adjust Cassandra own tradeoffs to return your answer
+
+# Cassandra values availability over consistency
+# HBase and MongoDB values Consistncy and Partition-Tolerance
+
+# Cassandra Architecture
+# Every node in Cassandra is running exactly the same software, doing the exactly the same thing and performing the same function
+
+# They also talk to one another, and ensure everyone has a backup to it
+# E.g node x might contain 1 to 1000,000 keys and node y might contain key 1000,0001 to 2000,000
+
+# If you are enforcing same consistency, you need 2 out of 3 nodes actually agree on a value to return or you can also specify the first node that return the value back
+
+# Cassandra's great for fast access to rows of information
+# Get the best of both worlds - replicate (Copy) Cassandra to another ring that is for analytics and Spark integration
+
+# CQL (Cassandra Query Language)
+# Cassandra's API is CQL, which makes it easy to look like existing database drivers to applications
+# CQL is like SQL, but with some big limitations!
+	- NO JOINS
+		- Your data must be de-normalized
+		- So, it's still non-relational
+	- All queries must be on some primary key
+		- Secondary indices are supported, but ...
+# CQLSH can be used on the command line to create tables, etc.
+# All tables must be in a keyspace - keyspaces are like databases
+
+# Cassandra and Spark
+# DataStax offers a Spark-Cassandra connector
+# Allows you to read and write Cassandra tables as DataFrames
+# Is smart about passing queries on those DataFrames down to the appriopriate level
+
+# Use cases
+	- Use Spark for analytics on data stored in Cassandra
+	- Use Spark to transform data and store it into Cassandra for transactional use
+
+# Install Cassandra onto Hadoop
