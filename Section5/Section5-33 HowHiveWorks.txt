@@ -2,7 +2,7 @@
 
 # Hive maintains a "metastore" that imparts a structure you define on the unstructured data that is stored on HDFS etc.
 
-CREATE TABLE ratings ()
+CREATE TABLE ratings (
 	userID INT,
 	movieID INT,
 	rating INT,
@@ -55,6 +55,6 @@ PARTITIONED BY (country STRING);
 # Through Ambari / Hue
 # Through JDBC/ODBC server
 # Through Thrift service
-# But remember, Hive is ot suitable for 
+# But remember, Hive is suitable for OLTP 
 
 

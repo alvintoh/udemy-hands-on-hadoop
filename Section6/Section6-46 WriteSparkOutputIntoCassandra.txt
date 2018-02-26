@@ -28,5 +28,3 @@ service cassandara stop
 
 
 
-
-

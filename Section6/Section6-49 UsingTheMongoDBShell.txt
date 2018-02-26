@@ -1,0 +1,48 @@
+# Using the mongo shell in the hadoop instance
+mongo
+
+# Show all databases in mongodb
+show databases
+
+# Use movielens database
+use movielens
+
+# Show all collections in mongodb
+show collections
+
+# Find user_id:100 in movielens
+db.users.find( {user_id: 100} )
+
+# Find out how the query works by finding db.users.explain()
+db.users.explain().find( {user_id: 100})
+
+# The most efficient way to find a user is by creating an index
+# Create an index on the user_id field
+# The 1 means it is ascending
+
+db.users.createIndex ( {user_id: 1} )
+
+# So once mongodb has an indexed field, it is going to run faster by retrieving it back
+
+# Mongodb does not set up an index field for you, you have to do it by hand to set up index
+
+# $group by means mongodb will recognize that special command
+
+# Mongodb query that groups users by occupation and average age
+db.users.aggregate([
+	{ $group: { _id: {occupation: "$occupation"}, avgAge: { $avg: "$age" } } }
+	])
+
+# To count how many users in the collection users
+db.users.count()
+
+# Get information about our collections in our database
+db.getCollectionInfos()
+
+# Dropping the collection info
+db.drop.users()
+
+# Type exit to get out of mongo shell
+exit
+
+# Next go to Ambari and stop mongodb service

@@ -1,0 +1,14 @@
+# Consistency is more important than anything your problem of massive  stock trading system
+# So leaning towards Hbase or MongoDB because they have a single primary master
+
+# So onto the issue of strong external support
+# Mongodb has strong support as there is one company that is supporting it behind
+# Do you research as there are also partners that support HBase
+
+# CAP Theorem may not hold true for some instances
+# Like for e.g there also companies that support Cassandra with support for high consistency
+
+# There are also other considerations like simplicity
+# Hbase already sits onto of Hadoop cluster
+
+# So think through your problem and research the best alternatives to select the best database for it

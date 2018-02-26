@@ -1,0 +1,87 @@
+# Log into Hadoop user maria_dev and password is maria_dev
+# su root
+
+# cd into the following directory to download MongoDB
+cd /var/lib/ambari-server/resources/stacks
+
+# cd into HDP
+cd HDP
+
+# if you ls you could see the different hadoop clusters
+ls
+
+# cd into the latest hadoop clsuter you have installed
+cd 2.6
+
+# cd into services
+cd services
+
+# pwd to know which directory you are inside now
+pwd
+
+# download into the directory the github repository for mongo-ambari
+git clone https://github.com/nikunjness/mongo-ambari.git
+
+# now restart the ambari service
+sudo service ambari restart
+
+# Now login to ambari localhost on your browser
+# The ambari address is 127.0.0.1:8080
+
+# login in to admin user
+
+# On the main page, press onto Actions and add Services
+# Add the MongoDB instance that you just installed onto your Hadoop cluster
+
+# Keep pressing next, proceed anyways and deploy the MongoDB instance
+
+# After MongoDB is now installed in Ambari, go to Files view
+
+# Go into user/maria_dev folder to create ml-100k folder
+# If you already have the folder, do not need to do this step
+
+# Go back into your Putty instance to install pymongo
+pip install pymongo
+
+# There will be a MongoSpark.py script that takes the data from the Hadoop instance and convert it into a RDD of Row objects
+# The script will then convert that to a DataFrame
+# It will then write the DataFrame into MongoDB
+# The script will then read it back from MongoDB into a new DataFrame
+# There will be a sparkSQL which have the following statement
+
+SELECT * FROM users WHERE age < 20
+
+# It will show the data
+# After that the session will be stopped
+
+# Exit from the services repository of su root from Putty
+exit
+
+# Get the MongoSpark.py script from media-sundog.com/hadoop/MongoSpark.py from Putty
+wget http://media.sundog-soft.com/hadoop/MongoSpark.py
+
+# To see the contents of MongoSpark.py
+less MongoSpark.py
+
+# Ensure that the Spark version that you are running is Version 2
+export SPARK_MAJOR_VERSION=2
+
+# To check Scala and Spark version
+spark-submit --version
+
+# To run MongoSpark.py file using spark
+spark-submit --packages org.mongodb.spark:mongo-spark-connector_2.11:2.2.0 MongoSpark.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+

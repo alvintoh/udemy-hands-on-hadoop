@@ -1,0 +1,70 @@
+# Choosing your database technology
+
+# Integration considerations
+
+# Moving from relational databases to non relational databases
+
+# Think about scaling requirements
+# How much data are you really talking about?
+# Look at nosql databases like Cassandra, Hbase and Mongo which can scale easily
+# Think about your transaction rates, how many requests do you intend to get per second (100 vs 10000)
+# A single database server is not going to cut it, you need a distributed database architecture where you can spread out the load of your architecture more evenly
+
+# Typically for this kind of situations, you are are talking about a website that have alot of web servers that can serving alot of people at the same time (Big Technology, web based company)
+
+# And for those situations, you are looking at distributed NoSQL databases more so than monolithic relational databases
+
+# Think about the support considerations
+# Most of the nosql databases have no or little security at all
+# Big vs small companies for security for nosql databases or any outsourced solutions 
+# So if you want paid support for security and related concerns, Mongodb is a good option as there are companies out there that offer paid support
+
+# Budget considerations? Probably not.
+# Think about the cost of support, open source
+# So think about the cost of these servers, renting amazon servers
+
+# Think about the CAP Considerations
+# C for Consistency, A for Availability and P for Partition-Tolerance 
+# CA -> MySQL
+# CP -> HBase, mongoDB
+# AP -> Cassandra
+# CAP theorem is really not a hard/ distinct rule, for e.g Cassandra can also configure consistency
+# MySQL you can also set up sharding and partition tolerance
+
+# The last thing is keep it simple (Simplicity)
+
+# An example
+# You are building an internal phone directory app
+	- Scale: limited
+	- Consistency: Eventual is fine
+	- Availability requirements: not mission critical
+	- MySQL is probably already installed on your web server ...
+# The choice is MySQL
+
+# Another example
+# You want to mine web server logs for interesting patterns
+# What are the most popular times of day? What's the average session length?
+# The choice is None of the above, as you can just put the data into HDFS and use Spark, Hive etc to analyze it
+
+# Another example
+# You have a big Spark job that produces movie recommendations for end users nightly
+# Something needs to vend this data to your web applicatons
+# You work for some huge company with massive scale
+# Downtime is not tolerated
+# Must be fast
+# Eventual consistency OK - it's just reads
+# In that case, Cassandra might be a good choice
+# If you do care about consistency, you can dial up the consistency meter on Cassandra
+
+# Your example
+# You are building a massive stock trading system
+# Consistency is more important than anything
+# "Big data" is present
+# It's really, really important - so having access to professional support might be a good idea. And you have enough budget to pay for it.
+
+
+
+
+
+
+

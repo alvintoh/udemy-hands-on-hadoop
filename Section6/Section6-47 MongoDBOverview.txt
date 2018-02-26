@@ -1,0 +1,67 @@
+# MongoDB sits on consistency and partition tolerance, so it sits on consistency over availability
+
+# MongoDB is a Document-based data mode, you can put in JSON data type
+
+# No real schema is enforced in MongoDB
+# You can have different fields in every document if you want to
+# No single "key" as in other databases
+- but you can create indices on any fields you want, or even combinations of fields.
+- If you want to "shard", then you must do so on some index.
+
+# Results in a lot of flexibility
+- But with great power comes great responsibility
+
+# MongoDB terminology
+- Databases
+- Collections 
+- Documents
+
+# MongoDB has replication Sets
+# Single-master!
+# Maintains backup copies of your database instance
+- Secondaries can elect a new primary within seconds if your primary is down
+- But make sure your operation log is long enough to give you the time to recover the primary when it comes back......
+
+# Replica Set Quirks
+# A majority of the servers in your set must agree on the primary
+- Even numbers of servers (like 2) don't work well
+
+# Don't want to spend money on 3 servers? You can set up an 'arbiter' node 
+- But only one
+
+# Apps must know about enough serveers in the replica set to be able to reach one to one to learn who's primary
+# Replicas only address durability, not your ability to scale
+- Well, unless you can take advantage of reading from secondaries - which generally isn't recommended
+- And your DB will still go into read-only mode for a bit while a new primary is elected
+
+# Delayed secondaries can be set up as as insurance against people doing dumb things
+
+# Sharding
+# Multiple replica sets where each replica sets is actually responsible for primary values
+# Ranges of some indexed value you specify are assigned to different replica set
+
+# Sharding Quirks
+# Auto-sharding sometimes doesn't work
+- Split storms, mongos processes restarted too often
+
+# You must have 3 config servers
+- And if any one goes down, your DB is down
+- This is on top of the single-master design of replica sets
+
+# MongoDB's loose document model can be at odds with effective sharding
+
+# Neat Things About MongoDB
+# It's not just a NoSQL database - very flexible document model
+# Shell is a full Javascript interpreter
+# Supports may indices
+- But only can be used for sharding
+- More than 2-3 are still discouraged
+- Full-text indices for text searches
+- Spatial indices
+
+# Built-in aggregation capabilities, MapReduce, GridFS
+- For some applications you might not need Hadoop at all
+- But MongoDB still integrates Hadoop, Spark, and most languages
+
+# A SQL connector is still available
+- But MongoDB still isnt designed for joins and normalize data really.
