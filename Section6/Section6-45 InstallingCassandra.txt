@@ -48,7 +48,7 @@ yum install dsc30
 pip install cqlsh
 
 # Starts up Cassandra
-service casssadra start
+service cassandra start
 
 # To start up the cqlsh server
 cqlsh

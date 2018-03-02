@@ -1,0 +1,34 @@
+# Apache Phoenix is a SQL for HBase
+# A SQL driver for HBase that supports transactions
+# Fast, low-latency - OLTP support
+# Originally developer by Salesforce, then open-sourced
+# Exposes a JDBC connector for HBase
+# Supports secondary indices and user-defined functions
+# Integrates with MapReduce, Spark, Hive, Pig, and Flume
+
+# Why Phoenix?
+# It's really fast. You probably won't pay a performance cost from having this extra layer on top of HBase
+# Why Phoenix and not Drill?
+- Well, chose the right tool for the job
+
+# Why Phoenix and not HBase's native client?
+- Your apps, and analysts, may find SQL easier to work with
+- Phoenix can do the work of optimizig more complex queries for you
+# But remember HBase is still fundamentally non-relational!
+
+# Phoenix Architecture sits on top of HBase API
+# Phoenix also has a Phoenix Co-Processor which works with HBase Region Server which inturn uses the HDFS file
+
+# Using Phoenix
+# Command-Line Interface (CLI)
+# Phoenix API for Java
+# JDBC Driver (thick client)
+# Phoenix Query Sever (PQS) (thin client)
+- Intended to eventually enable non-JVM access
+# JAR's for MapReduce, Hive, Pig, Flume, Spark
+
+# Let's Play
+# Install Phoenix on our Hortonworks Sandbox
+# Mess around wtih the CLI
+# Set up a users table for Movielens
+# Store and load data to it through the Pig integration

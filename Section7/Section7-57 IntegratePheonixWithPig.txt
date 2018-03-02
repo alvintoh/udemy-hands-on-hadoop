@@ -1,0 +1,60 @@
+# Create the actual table before you can actually query the database with pig
+
+# Go to pheonix client folder by going into this file directory from su root
+cd /usr/hdp/current/phoenix-client/bin
+
+# So go back to phoenix cli interface
+python sqlline.py
+
+# Create the table users in Phoenix
+CREATE TABLE users ( USERID INTEGER NOT NULL, AGE INTEGER, GENDER CHAR(1), OCCUPATION VARCHAR, ZIP VARCHAR CONSTRAINT pk PRIMARY KEY(USERID));
+
+# Ensure the table users is created
+!tables
+
+# Quit from the Phoenix database
+!quit
+
+# Go to home directory for maria_dev
+cd /home/maria_dev
+
+# Go and mkdir for ml-100k if you have not did it yet and cd into ml-100k
+cd ml-100k/
+
+# To get file u.user from sundog website
+wget http://media.sundog-soft.com/hadoop/ml-100k/u.user
+
+# To get files from hadoop dfs just -get this command to current directory
+hadoop fs -get /user/maria_dev/ml-100k/u.user ./
+
+# To get pheonix script from sundog website
+wget http://media.sundog-soft.com/hadoop/phoenix.pig
+
+# To show the phoenix pig script
+less phoenix.pig
+
+# To run phoenix script
+pig phoenix.pig
+
+# To run phoenix by using pig specifying mapreduce
+pig -x mapreduce phoenix.pig
+
+# To run pheonix by using pig specifying tez
+pig -x tez phoenix.pig
+
+# To go into the phoenix folder
+cd /usr/hdp/current/phoenix-client/bin
+
+# To run pheonix sql line interface
+python sqlline.py
+
+# To check your tables
+SELECT * FROM USERS LIMIT 10;
+
+# To drop your users table
+DROP TABLES IF EXISTS users;
+
+# Stop your HBase service after you are finished with it
+
+# Cannot run Phoenix script on my Hadoop instance
+# java index out of bounds exception keep appearing

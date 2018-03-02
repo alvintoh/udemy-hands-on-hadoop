@@ -1,0 +1,51 @@
+# Go into Ambari view in http://127.0.0.1:8080 and login as admin user
+# Start up MongoDB and go into Hive view to set up your database
+
+# Create your database in Hive first
+CREATE DATABASE movielens;
+
+# Next click on UploadTable
+# The filetype to upload will be CSV delimited by tab
+# Select from local the file u.data
+# Import the data into database movielens you just created
+# Name the Table name ratings
+
+# Name the following columns as
+# Column 1: user_id (INT)
+# Column 2: movie_id (INT)
+# Column 3: rating (INT)
+# Column 3: epoch_seconds (INT)
+
+# Show a preview of the ratings table that you imported
+SELECT * FROM ratings LIMIT 100;
+
+# Login into Putty Hadoop instance as maria_dev
+# su root to go into super user
+
+# u.user file should be present in ml-100k folder
+
+# In Putty Hadoop instance use Spark version 2
+export SPARK_MAJOR_VERSION=2
+# To kick off the script importing the data into MongoDB
+spark-submit --packages org.mongodb.spark:mongo-spark-connector_2.11:2.2.0 MongoSpark.py
+
+# Head over to drill.apache.org
+# Go to the download mirror
+# Copy the link address for tar gz file
+
+# Download the file through your Putty hadoop instance
+wget http://www-eu.apache.org/dist/drill/drill-1.12.0/apache-drill-1.12.0.tar.gz
+
+# To uncompress the apache drill tar gz file
+tar -xvf apache-drill-1.12.0.tar.gz
+
+# cd into apache-drill-1.12.0
+# ls inside to see your files
+
+# To allow drill to be started and use the ports already forwarded inside your Hadoop instance
+bin/drillbit.sh start -Ddrill.exec.http.port=8765
+
+# Ensure 127.0.0.1:8765/storage inside the storage plugins for hive and Mongo is enabled
+# Hit the update button for Hive and update the hive.metastore.uris to "thrift://localhost:9083"
+
+# Hit the update button for Mongod and update the connection: "mongodb://localhost:27017/"

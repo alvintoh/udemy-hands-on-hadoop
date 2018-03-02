@@ -1,0 +1,80 @@
+# Go to inside Hortonworks Sandbox and login into maria_dev
+# su root to go to super user
+su root
+
+# Ensure that you are in your home directory
+pwd
+
+# Download presto server onto your directory
+wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.195/presto-server-0.195.tar.gz
+
+# unpack the presto tar.gz
+tar -xvf presto-server-0.195.tar.gz
+
+# Go to inside the presto-server-0.195
+cd presto-server-0.195
+
+# Download the config file from sundog website into the presto-server directory
+wget http://media.sundog-soft.com/hadoop/presto-hdp-config.tgz
+
+# Unpack the config file
+tar -xvf presto-hdp-config.tgz
+
+# Look inside the etc directory
+cd etc
+
+# Show the various files
+less config.properties
+less node.properties
+
+# Go inside the catalog directory
+cd catalog/
+
+# Show hive properties
+less hive.properties
+
+# go out of the directory into home directory of presto-server
+cd ..
+cd ..
+
+# Ensure that you are inside the bin directory for presto-server
+cd bin
+
+# Download the command line interface for Presto
+wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.195/presto-cli-0.195-executable.jar
+
+# Rename the jar to presto
+mv presto-cli-0.195-executable.jar presto
+
+# Give the appriopriate permissions to execute it
+chmod +x presto
+
+# cd .. to go onto the presto-server home directory
+# Now to start the server, just need to type this command
+bin/launcher start
+
+# Go in to the web interface for Presto
+127.0.0.1:8090
+
+# Connect presto to the server 127.0.0.1:8090 and set up a command line interface for hive
+bin/presto --server 127.0.0.1:8090 --catalog hive
+
+# Show tables from using Presto on Hiv on default database
+show tables from default;
+
+# Show top 10 rows from default.ratings table
+SELECT * FROM default.ratings LIMIT 10;
+
+# You can view the statistics from Presto web interface from the query
+
+# Show the ratings where rating = 5
+SELECT * FROM default.ratings WHERE rating = 5 LIMIT 10;
+
+# Count the number of rating where rating = 1
+SELECT COUNT (*) FROM default.ratings WHERE rating = 1;
+
+# Quit from presto
+quit
+
+# Stop presto server
+bin/launcher stop

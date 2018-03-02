@@ -1,0 +1,71 @@
+# Need to ensure you are in Presto-server directory first before you can run!
+# Go and enable Python 2.7
+scl enable python27 bash
+
+# Ensure your python version is 2.7
+python -V
+
+# Start your cassandra service
+service cassandra start
+
+# Enable thrift server to run cassandra
+nodetool enablethrift
+
+# Enable cqlsh server first
+cqlsh
+
+# Enable cassandra sql shell
+cqlsh --cqlversion="3.4.0"
+
+# See what is in there the keyspaces
+describe keyspaces;
+
+use movielens;
+describe tables;
+select * from users limit 10;
+quit
+
+# Now to configure the properties for cassandra
+cd etc/catalog
+
+# Create cassandra config file inside catalog
+vi cassandra.config
+
+connector.name=cassandra
+cassandra.contact-points=127.0.0.1
+
+HIT ESC and :wq to write and quit
+
+# Go back to presto-server directory
+cd ../..
+
+# Start up bin/launcher start
+bin/launcher start
+
+# Start up presto UI view with hive and cassandra
+bin/presto --server 127.0.0.1:8090 --catalog hive,cassandra
+
+# Show tables from cassandra
+show tables from cassandra.movielens;
+
+# Describe cassandra.movielens.users;
+describe cassandra.movielens.users;
+
+select * from cassandra.movielens.users limit 10;
+
+# Select rows from hive table
+select * from hive.default.ratings limit 10;
+
+# select rows from hive and cassandra
+select u.occupation, count(*) from hive.default.ratings r join cassandra.movielens.users u on r.user_id = u.user_id group by u.occupation;
+
+# Can go to the document on Connectors on Presto page to see how to create config file for different databases like MongoDB, MySQL etc
+
+# quit from presto
+quit
+
+# stop presto-server
+bin/launcher stop
+
+# stop cassandra service
+service cassandra stop

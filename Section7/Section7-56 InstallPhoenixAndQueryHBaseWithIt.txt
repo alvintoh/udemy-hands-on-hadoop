@@ -1,0 +1,42 @@
+# Go into Ambari and login as Admin
+# Start HBase service action
+
+# After HBase is started log into Hadoop instance as maria_dev
+# su root to install Phoenix
+# Type this yum script to install HBase
+yum install phoenix
+
+# Go to phoenix repo in Hadoop
+cd /usr/hdp/current/phoenix-client/
+
+# ls inside to see what is inside the folder and cd bin
+ls
+cd bin
+
+# To activate the sql line interface for python just type in this
+python sqlline.py
+
+# To see the tables which you can work with
+!tables
+
+# Create table for us_population
+CREATE TABLE IF NOT EXISTS us_population(
+	state CHAR(2) NOT NULL,
+	city VARCHAR NOT NULL,
+	population BIGINT,
+	CONSTRAINT my_pk PRIMARY KEY(state, city));
+
+# Update and insert into us_population
+UPSERT INTO US_POPULATION VALUES ('NY', 'New York', 8143197);
+UPSERT INTO US_POPULATION VALUES ('CA', 'Los Angeles', 3844829);
+
+# See the datas fields from us_population
+SELECT * FROM US_POPULATION;
+
+SELECT * FROM US_POPULATION WHERE STATE='CA';
+
+# Drop table us_population
+DROP TABLE US_POPULATION;
+
+# Insert !quit to quit sqlline.py
+!quit

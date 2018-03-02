@@ -1,0 +1,31 @@
+# What forms the World of Hadoop is divided into 3 sections
+
+1) Query Engines
+2) Core Hadoop Ecosystem
+3) External Data Storage
+
+# What sits inside the Query Engines
+# Apache Drill is a technology that lets you issue SQL queries across your wide cluster and not just Hadoop, can talk to Hive and HBase
+# Apache Phoenix sits on top of HBase but conceptually its a query engine that also lets you issue SQL queries across non relational database
+# Presto is made by Facebook instead of Apache and it is open sourced now
+# Presto can talk to Cassandra whereas Drill cannot but Drill can talk to MongoDB where as Presto cannot
+
+# Apache Drill can execute SQL queries on top of data that might not even have a schema at all (So it isnt relational in nature)
+# What is Apache Drill?
+# A SQL query engine for a variety of non-relational databases and files
+- Hive, MongoDB, Hbase
+- Even flat JSON or Parquet files on HDFS, S3, Azure, Google cloud, local file system
+# Based on Google's Dremel
+
+# Drill is real SQL
+# And it has a ODBC / JDBC driver so other tools can connect to it just like any relational database
+
+# Its fast and pretty eay to set up
+# But remember, these are still non-relational databases under the hood!
+# Allows SQL analysis of disparate data source without having to transform and load it first
+- Internally data is represented as JSON and as has no fixed schema
+
+# You can even do joins across different database technologies
+# Or with flat JSON files that are just sitting around
+
+# Think of Drill as SQL for your entire ecosystem

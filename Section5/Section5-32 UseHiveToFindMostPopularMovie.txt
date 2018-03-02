@@ -14,10 +14,10 @@ DROP TABLE ratings;
 # Call the table name ratings
 
 # Name the following columns as
-column1: userID
-column2: movieID
+column1: user_id
+column2: movie_id
 column3: rating
-column4: epochseconds
+column4: epoch_seconds
 
 # Go and import the table
 
