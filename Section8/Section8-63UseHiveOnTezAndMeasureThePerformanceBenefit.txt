@@ -1,0 +1,41 @@
+# Open up Ambari by going to 127.0.0.1:8080
+
+# Login in as username: admin and password: password
+
+# If you want to have MongoDB in Horton Works Hadoop 2.6, install and enable MongoDB server and MongoDB service manually in Ambari UI in 127.0.0.1:8080
+
+# Go into Hive view inside should have movielens database with the 4 tables
+
+# Go to Upload Table
+- Choose a CSV format
+- The delimiter is 124 | pipe character
+- Choose u.item file to upload
+- Call the Table name: names
+
+# Change the column names
+- Change column1 to movie_id
+- Change column2 to name
+- Change column3 to release_date
+- Click Upload Table after that
+
+# The SQL script to find the movie name and ratingCount
+
+DROP VIEW IF EXISTS topMovieIDs;
+
+CREATE VIEW topMovieIDs AS
+SELECT movie_id, count(movie_id) as RatingCount
+FROM movielens.ratings
+GROUP BY movie_id
+ORDER BY ratingCount DESC;
+
+SELECT n.name, ratingCount
+FROM topMovieIDs t JOIN movielens.names n ON t.movie_id = n.movie_id;
+
+# To select the Tez or MapReduce engine on Hive
+- Click on the gear icon
+- Select hive.execution.engine
+- Select tez
+- Select mr for the Map Reduce configuration
+- Based on duration, tez should be alot faster
+
+# You can go to Tez view to see how the Tez statistics for the job id for your Hive job

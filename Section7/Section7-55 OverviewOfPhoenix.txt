@@ -13,7 +13,7 @@
 
 # Why Phoenix and not HBase's native client?
 - Your apps, and analysts, may find SQL easier to work with
-- Phoenix can do the work of optimizig more complex queries for you
+- Phoenix can do the work of optimizing more complex queries for you
 # But remember HBase is still fundamentally non-relational!
 
 # Phoenix Architecture sits on top of HBase API

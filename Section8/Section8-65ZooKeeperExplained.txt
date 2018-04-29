@@ -1,0 +1,71 @@
+# What is ZooKeeper?
+
+# It basically keeps track of information that must be synchronized across your cluster
+- Which node is the master?
+- What tasks are assigned to which  workers?
+- Which workers are currently available?
+
+# It's a tool that applications can use to recover from partial failures in your cluster.
+
+# An integral part of HBase, High-Availability (HA) MapReduce, Drill ,Storm, Solr, and much more
+
+# Failure modes
+# Master crashes, needs to fail over to a backup
+# Worker crashes - its work needs to be redistributed
+# Network trouble - part of your cluster can't see the rest of it
+
+# "Primitive" operations in a distributed system
+
+# Master election
+- One node registers itself as a master, and holds a "lock" on that data
+- Other nodes cannot become master until that lock is released
+- Only one node allowed to hold the lock at a time
+
+# Crash detection
+- "Ephemeral" data on a node's availability automatically goes away if the node disconnects, or fails to refresh itself after some time-out period.
+
+# Group management
+
+# Metadata
+- List of outstanding tasks, task assignments
+
+# But ZooKeeper's API is not about these primitives
+# Instead they have built a more general purpose system that makes it easy for applicationsto implement them.
+
+# ZooKeeper's API
+# Really a little distributed file system
+- With strong consistency guarantees
+- Replace the concept of "file" with "znode" and you pretty much got it
+
+# Here's the ZooKeeper API:
+- Create, delete, exits, setData, getData, getChildren
+
+# Zookeeper Ensure that only 1 master exists at one time
+# There are many workers to the cluster, if one of the workers were to go down, other workers could know it and respond accordingly
+
+# Notifications
+# A client can register for notifications on a znode
+- Avoids continous polling
+- Example: register for notification on /master - if it goes away, try to take over as the new master
+
+# Persistent and ephemeral znodes
+
+# Persistent znodes remain stored until explicitly deleted
+- i.e., assignment of tasks to workers must persist even if master crashes
+
+# Ephemeral znodes go away if the client that created it crashes or loses it connection to ZooKeeper
+- i.e., if the master crashes, it should release its lock on the znode that indicates which node is the master!
+
+# ZooKeeper Architecture
+# Clients have a list of ZooKeeper servers to connect to.
+
+# ZooKeeper quorums
+# ZooKeeper ensemble comprises of a number of ZooKeeper servers, 3 -5 ZooKeeper quorums, with 3 ZooKeeper servers for ZooKeeper ensemble
+
+# So to ensure consistency, and provide the same answer from ZooKeeper. So ZooKeeper need to ensure at least a ZooKeeper Qourum of 3 ZooKeeper servers, as the 3rd ZooKeeper may give a different answer to ensure reliable and accurate answer compared to only 2 ZooKeeper servers
+
+# Ensure these ZooKeeper servers are spread across different data sets
+
+# ZooKeeper sounds alot like how MongoDB works
+
+# Look at the requirements of the application in order to know whether is consistency is a priority for you

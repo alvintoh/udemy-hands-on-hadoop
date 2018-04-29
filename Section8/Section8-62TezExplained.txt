@@ -1,0 +1,21 @@
+# What is Tez?
+
+# Another bit of infrastructure you can just use
+- Makes your Hive, Pig, or MapReduce jobs faster
+- It's an application framework clients can code against as a replacement for MapReduce
+
+# Constructs Directed Ayclic Graphs (DAGs) for more efficient procesing of distributed jobs
+- Relies on a more holistic view of your job; eliminates unnecessary steps and dependencies
+
+# Optimizes physical data flow and resource usage
+
+# Tez eliminates some of the stages for MapReduce to skip some intermediate stages to make it run faster
+
+# Tez is a YARN application and sits ontop of Cluter Computer Layer as YARN
+
+# Just tell Hive or Pig to use it
+# It probably does by default anyhow.
+# It really is a lot faster
+# Tez consistently outperform MapReduce by alot a significant measure based on benchmarking performance
+
+# Compare performance of a Hive query using Tez vs. MapReduce

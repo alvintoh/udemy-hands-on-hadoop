@@ -10,7 +10,7 @@ cd HDP
 # if you ls you could see the different hadoop clusters
 ls
 
-# cd into the latest hadoop clsuter you have installed
+# cd into the latest hadoop cluster you have installed
 cd 2.6
 
 # cd into services

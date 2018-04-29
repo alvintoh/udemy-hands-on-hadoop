@@ -1,0 +1,41 @@
+# Open Putty to access HDP instance
+
+# Access username: maria_dev and password: maria_dev on account on Putty Instance
+
+# su root and log into root user
+
+# Go into zookeeper folder
+# cd /user/hdp/current/zookeeper-client/
+
+# cd bin
+
+# Starts up Zookeeper bash prompt
+# ./zkCli.sh
+
+# ls /
+
+# You can see the Zookeeper instance and the existing sub directories for Zookeeper
+
+# Creating a test master for Zookeeper
+# create -e /testmaster "127.0.0.1:2223"
+
+# So testmaster will be created successfully with ZooKeeper master
+
+# get /testmaster
+# They can see who is the master for this ZooKeeper
+
+# quit
+# This is done to shutdown ZooKeeper
+
+# ./zkCli.sh again and you would not see testmaster
+# This is because testmaster would shutdown and delete itself
+
+# get /testmaster
+# Node does not exist in this case
+
+# create -e /testmaster "127.0.0.1:2225"
+
+# create -e /testmaster "127.0.0.1:2225"
+# Node already exists so ZooKeeper will not let you create one more
+
+# In the real world, if the master node is down, ZooKeeper will ensure that only 1 node can be the znode which will be the master node at any one time

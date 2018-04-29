@@ -29,7 +29,7 @@
 # Don't want to spend money on 3 servers? You can set up an 'arbiter' node 
 - But only one
 
-# Apps must know about enough serveers in the replica set to be able to reach one to one to learn who's primary
+# Apps must know about enough servers in the replica set to be able to reach one to one to learn who's primary
 # Replicas only address durability, not your ability to scale
 - Well, unless you can take advantage of reading from secondaries - which generally isn't recommended
 - And your DB will still go into read-only mode for a bit while a new primary is elected

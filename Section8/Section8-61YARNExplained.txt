@@ -1,0 +1,43 @@
+# HADOOP YARN stands for Yet Another Resource Negotiator
+
+# Yet Another Resource Negotiator
+- Introduced in Hadoop 2
+- Seperates the problem of managing resources on youor cluster from MapReduce
+- Enabled development of MapReduce alternatives (Spark, Tez) built on top of YARN
+
+# It's just there, under the hood, managing the usage of your cluster
+- I can't think of a reason why you would need to actually write code against it in this day and age. But you can
+
+# Where YARN fits in
+
+# YARN Applications comprises of MapReduce, Spark and Tez sits on top of Cluster Compute Layer which is YARN. YARN in turn sis on top of HDFS which is the Cluster Storage Layer
+
+# Remember how MapReduce works, which is how YARN Resource Manager works, as it is running the MapReduce Application Master which asks for more resources through YARN
+
+# How YARN works
+- Your application talks to the Resource Manger to distribute work to your cluster
+
+- You can specify data locality - which HDFS block(s) do you want to process?
+1) YARN will try to get your process on the same node that has your HDFS blocks
+
+- You can specify different scheduling options for applications
+1) So, you can run more than one application at once for your cluster
+2) FIFO, Capacity, and Fair schedulers
+
+- FIFO runs job in sequence, first in first out
+- Capacity may run jobs in parallel if there's enough spare capacity
+- Fair may cut into a larger running job if you just want to squeeze in a small one
+
+# Building new YARN applications
+- Why? There are so many existing projects you can use
+- Need a DAG*(Directed Acyclic Graph) - based application? Build it on Spark or Tez
+
+- But if you really really need to
+- There are frameworks: Apache Slider, Apache Twill
+- And there are some books on the topic
+
+# Want to practice "using YARN?" Well, we already did that with MapReduce and Spark!
+
+# You just need to know it's there, under the hood, managing your cluster's resources for you
+
+# Thanks YARN!
