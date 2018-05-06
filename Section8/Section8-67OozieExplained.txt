@@ -1,0 +1,50 @@
+# OOZIE orchestrating your Hadoop jobs
+
+# What is Oozie?
+- Burmese for "elephant keeper"
+- A system for running and scheduling Hadoop tasks
+
+# Workflows
+# A multi-stage Hadoop job
+- Might chain together MapReduce, Hive, Pig, sqoop and discp tasks
+- Other systems available via add-ons (like Spark)
+
+# A workflow is a Directed Acyclic Graph of actions
+- Specified via XML
+- So, you can run actions that don't depend on each other in parallel
+
+# Workflow example
+- From start -> fork -> pig (Extract top-rated movies ID) , sqoop -> join -> hive (Join and filter results)-> End
+
+# So it will look like a Workflow XML structure
+
+# Steps to set up a workflow in Oozie
+- Make sure each action works on its own
+- Make a directory in HDFS for your job
+- Create your workflow.xml file and put it in your HDFS folder
+- Create job.properties defining any variables and put it in your HDFS folder
+1) This goes on your local filesystem where you will launch the job from
+2) You could also set these properties within your xml
+
+# Debugging things in Oozie is not easy so ensure that should always debug things outside of Oozie
+
+# Running a workflow with Oozie
+- oozie job --oozie http://localhost:11000/oozie -config/home/maria_dev/job.properties -run
+- Monitor progress at http://127.0.0.1:11000/oozie
+
+# Oozie Coordinators
+- Schedule workflow execution
+- Launches workflows based on a given start time and frequency
+- Will also wait for required input data to become available
+- Run in exactly the same way as a workflow
+
+# Oozie bundles
+- New in Oozie 3.0
+- A bundle is a collection of coordinators that can be managed together
+- Example: you may have a bunch of coordinators for processing log data in various ways
+- By grouping them in a bundle, you could suspend them all if there were some problem with log collection
+
+# Let's set up a simple workflow in Oozie
+- We will get movielens into MySQL if it's not still there
+- Write a Hive script to find all movies released before 1940
+- Set up an Oozie workflow that uses sqoop to extract movie information from MySQL, then analyze it with Hive

@@ -1,0 +1,92 @@
+# Open up maria_dev on Putty instance
+
+# Go to root and open mysql -u root -p
+
+mysql -u root -p
+
+# Type in the password: hadoop
+# This is the password used to access MySQL root in hadoop
+
+show databases
+
+# Inside should have a movielens database, so you already have the data you need
+
+# If you do not have movielens database quit and wget from sundog website
+
+quit
+
+wget http://media.sundog-soft.com/hadoop/movielens.sql
+
+# Go back to Mysql instance in root
+
+mysql -u root -p
+
+# Set the following configuration for your database
+
+set names 'utf8';
+
+set character set utf8;
+
+create database movielens;
+
+use movielens;
+
+# Use the sql script in filepath
+source movielens.sql;
+
+show tables;
+
+# See if the data is inside the tables
+select * from movies limit 10;
+
+# To grant all permissions to access this database
+grant all privileges on movielens.* to ''@'localhost';
+
+quit
+
+# Now we go and download our hive script
+wget http://media.sundog-soft.com/hadoop/oldmovies.sql
+
+# Now lets take a look the oldmovies.sql script that we have download
+less oldmovies.sql
+
+# Lets download the Oozie XML script that we can use for our movielens database
+
+wget http://media.sundog-soft.com/hadoop/workflow.xml
+
+# Lets download the Oozie Job properties for the job we are going to run
+
+wget http://media.sundog-soft.com/hadoop/job.properties
+
+less job.properties
+
+# Put the following files into hadoop file path
+
+hadoop fs -put workflow.xml /user/maria_dev
+hadoop fs -put oldmovies.sql /user/maria_dev
+hadoop fs -put /usr/share/java/mysql-connector-java.jar /user/oozie/share/lib/lib_20171110144231/sqoop
+
+# Need to ensure the lib number is the same
+# Go to ambari and login in admin and go to under files view, user/oozie/share/lib/ to check if the lib number matches
+
+Go to ambari and restart all services for Oozie
+
+# Next login into maria_dev account in Putty
+
+# To run the oozie job command in hadoop
+oozie job --oozie http://localhost:11000/oozie -config /home/maria_dev/job.properties -run
+
+# Instead of sandbox.hortonworks, it should be sandbox-hdp.hortonworks, so change that in job description in order to let run the Oozie job
+
+# After the oozie job is finished, you can go to the Oozie Web Console to see the job id
+
+127.0.0.1:11000/oozie/
+
+You can double click on the job to see the status, and also click on Job DAG to see the workflow, job definition, job configuration, job log, job error log
+
+You can also click active jobs and all jobs in the oozie web console home page
+
+You can view the output file in user/maria_dev/oldmovies/
+
+# Currently have some issues with Oozie as it is stuck in prep stage without moving to sqoop. Issue maybe linked to nameNode Url and ports issue
+
