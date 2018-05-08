@@ -1,0 +1,101 @@
+# Change the conf file in zeppelin UI to reference it to spark2
+
+Please follow these steps
+
+1) Remove SPARK_HOME from zeppelin-env.sh
+
+2) On Zeppelin UI, go onto zeppelin interpreters page and edit spark interpreter, add property SPARK_HOME = /usr/hdp/current/spark-client
+
+3) On Zeppelin UI, in zeppelin interpreters home page only - create a new interpreter whose base interpreter group is spark. Name this interpreter as spark2.
+
+4) Edit this interpreter spark2 by adding property SPARK_HOME=/usr/hdp/current/spark2-client
+
+5) Now create a notebook and run following paragraph
+
+%spark2
+
+sc.version
+
+It should point to spark2 version
+
+Before you start, stop, or restart Zeppelin, you must switch user to zeppelin:
+
+su zeppelin
+Follow this step to start the Zeppelin server:
+
+/usr/hdp/current/zeppelin-server/bin/zeppelin-daemon.sh start
+Follow this step to stop the Zeppelin server:
+
+/usr/hdp/current/zeppelin-server/bin/zeppelin-daemon.sh stop
+Follow this step to restart the Zeppelin server:
+
+/usr/hdp/current/zeppelin-server/bin/zeppelin-daemon.sh restart
+
+# This is the resource for it
+https://community.hortonworks.com/questions/78002/is-it-possible-to-run-spark-20-version-in-zeppelin.html
+
+# Zeppelin Notebook interface comes pre-installed with Horton Works
+# Go to 127.0.0.1:9995 to view the Zeppelin Notebook interface
+
+# So you can create new notebook in Zeppelin
+
+# Name the new note Playing with MovieLens
+
+# You can click on the interpreter binding icon on the right side of the page
+
+# Ensure spark is at the top of the list in the interpreter binding list and save it
+
+# You can put code and notations in the notebook
+
+# For example, if you put %md, the notebook is going to be markdown format
+
+# You can then put ### to specify the comments
+
+%md
+### Let's make sure Spark is working first!
+Let's see what version we're working with.
+
+Shift Enter to run the code in Zeppelin
+
+# In the Zeppelin, Spark is already pre-initialized
+# There's a Spark object called sc, and a SparkSQL object called SQL context, so we can just say sc.version
+
+# Type sc.version to find out the Spark object version
+
+# To get the following data with bash command
+
+%sh
+
+wget http://media.sundog-soft.com/hadoop/ml-100k/u.data -O /tmp/u.data
+wget http://media.sundog-soft.com/hadoop/ml-100k/u.item -O /tmp/u.item
+echo "Downloaded!"
+
+# Moving the data into hadoop fs
+
+%sh 
+
+hadoop fs -rm -r -f /tmp/ml-100k
+
+hadoop fs -mkdir /tmp/ml-100k
+
+hadoop fs -put /tmp/u.data /tmp/ml-100k/
+hadoop fs -put /tmp/u.item /tmp/ml-100k/
+
+# Writing in Scala to create a Rating class and mapping the contents to val lines
+
+final case class Rating(movieID: Int, ratin: Int)
+
+val lines = sc.textFile("hdfs:///tmp/ml-100k/u.data").map(x => {val fields = x.split("\t"); Rating(fields(1).toInt, fields(2).toInt)})
+
+# sc.version and sc does not seems to be working in Zeppelin for my version
+
+# Using the sqlContext 
+
+import sqlContext.implicits._
+val ratingsDF = lines.toDF()
+
+ratingsDF.printSchema()
+
+# Displaying the top count for topMovieIDs
+
+val topMovieIDs = ratingsDF.groupBy("movieID").count().orderBy(desc("count")).cache()

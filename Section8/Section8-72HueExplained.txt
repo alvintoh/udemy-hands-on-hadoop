@@ -1,0 +1,32 @@
+# HUE is a Hadoop User Experience
+
+# If you are using Cloudera, you will use it alot
+
+# A tale of Two Distros
+
+# Hortonworks
+- Ambari used for management and query / files UI
+- Zeppelin used for notebook
+
+# Cloudera
+- Hue used for query / files UI and notebook
+- Cloudera Manager used for management
+
+# Hue is Cloudera's Ambari - sort of 
+
+# Cool things about Hue
+
+# Oozie editor
+- Also Spark, Pig, Hive, HBase, HDFS, Sqoop
+
+# Built-in notebooks
+
+# It *is* open source
+
+# Not an Apache project; maintained by Cloudera
+
+# It can be installed on a Hortonworks distribution if you try hard enough!
+
+# You can go to gethue.com to see how HUE works
+
+# You can define your own oozie workflow in Hue, and define the various SQL queries to extract the information you want

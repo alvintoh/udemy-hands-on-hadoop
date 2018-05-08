@@ -90,3 +90,32 @@ You can view the output file in user/maria_dev/oldmovies/
 
 # Currently have some issues with Oozie as it is stuck in prep stage without moving to sqoop. Issue maybe linked to nameNode Url and ports issue
 
+# Issue solved by changing job.properties jobTracker to port 8032
+
+# Oozie Commands
+1) Submit job:
+$ oozie job -oozie http://localhost:11000/oozie -config oozieProject/workflowHdfsAndEmailActions/job.properties -submit job: 0000001-130712212133144-oozie-oozi-W
+ 
+2) Run job:
+$ oozie job -oozie http://localhost:11000/oozie -start 0000001-130712212133144-oozie-oozi-W
+ 
+3) Check the status:
+$ oozie job -oozie http://localhost:11000/oozie -info 0000001-130712212133144-oozie-oozi-W
+ 
+4) Suspend workflow:
+$ oozie job -oozie http://localhost:11000/oozie -suspend 0000001-130712212133144-oozie-oozi-W
+ 
+5) Resume workflow:
+$ oozie job -oozie http://localhost:11000/oozie -resume 0000001-130712212133144-oozie-oozi-W
+ 
+6) Re-run workflow:
+$ oozie job -oozie http://localhost:11000/oozie -config oozieProject/workflowHdfsAndEmailActions/job.properties -rerun 0000001-130712212133144-oozie-oozi-W
+ 
+7) Should you need to kill the job:
+$ oozie job -oozie http://localhost:11000/oozie -kill 0000001-130712212133144-oozie-oozi-W
+ 
+8) View server logs:
+$ oozie job -oozie http://localhost:11000/oozie -logs 0000001-130712212133144-oozie-oozi-W
+ 
+Logs are available at:
+/var/log/oozie on the Oozie server.

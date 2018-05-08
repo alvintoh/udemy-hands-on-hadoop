@@ -1,0 +1,34 @@
+# Other Adminstrative Technologies
+
+# Some older systems you might hear about.
+
+# Ganglia
+# Distributed monitoring system
+- Developed by UC Berkeley
+- Originally widely used by universities
+- Wikimedia / Wikipedia used to use it.
+
+# Largely supplanted by Ambari / Cloudera Manager / Grafana
+
+# It ain't pretty
+
+# Compare that to Grafana / Ambari
+
+# Ganglia is dead
+# Last updated in 2008
+# Website is largely broken
+# But you might encounter it in really old systems
+
+# Chukwa
+# System for collecting and analyzing logs from your Hadoop cluster\
+# Initially adopted by NetFlix
+# Largely supplanted by Flume and Kafka
+- Both are more general purpose
+- Faster
+- Easier to set up
+- More reliable
+
+# Chukwa is dead
+# Hasn't changed since 2010
+# Website is largely broken
+# No usage to speak of today

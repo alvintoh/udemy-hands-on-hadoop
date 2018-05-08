@@ -1,0 +1,44 @@
+# Continued from Section 8 -70 Part 1
+
+# Creating a Temp table from ratingsDF
+
+ratingsDF.registerTempTable("ratings")
+
+# Using SparkSQL to query data from the temp table
+
+%sql
+
+SELECT * FROM ratings LIMIT 10
+
+# Finding out counts of the various ratings
+
+%sql
+
+SELECT rating, COUNT(*) as count FROM ratings GROUP BY rating
+
+# You can press the graph to see the visual histogram of the query
+
+# Show all the movies in the dataframe
+
+final case class Movie(movieID: Int, title: String)
+
+val lines = sc.textFile("hdfs:///tmp/ml-100k/u.item").map(x => {val fields = x.split('|'); Movie(fields(0).toInt, fields(1))})
+
+import sqlContext.implicits._
+val moviesDF = lines.toDF()
+
+moviesDF.show()
+
+# Expose that as a temporary table
+
+moviesDF.registerTempTable("titles")
+
+# Joining the titles table to ratings
+
+%sql
+
+SELECT t.title, count(*) cnt FROM ratings r JOIN titles t ON r.movieID = t.movieID GROUP BY t.title ORDER BY cnt DESC LIMIT 20
+
+# You can visualize it by removing LIMIT 20, there you can see a chart distribution
+
+# You can export Zeppelin notebook as a JSON format can let others import your Zeppelin notebook
