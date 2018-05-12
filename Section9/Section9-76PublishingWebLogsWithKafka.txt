@@ -1,0 +1,74 @@
+# Lets use a built in Kafka connector to actually monitor and publish a topic on web logs
+
+# So we need to configure the Kafka connector
+
+cd conf
+
+# But before doing some configurations on these files, lets make a copy of them
+
+cp connect-standalone.properties ~/
+cp connect-file-sink.properties ~/
+cp connect-file-source.properties ~/
+
+cd ~/
+
+# Basically we just are just copying these files to the home directory in maria_dev
+
+# Now lets see the files in which we copied to the home directory
+
+vi connect-standalone.properties
+
+# After going inside the properties file, hit i to change to insert and change the line for bootstrap.servers
+
+bootstrap.servers=sandbox-hdp.hortonworks.com:6667
+
+# Hit :wq to write and quit from the properties file
+
+# Next modify the connect-file-sink properties file
+
+vi connect-file-sink.properties
+
+# Change the file = /home/maria_dev/logout.txt and topics=log-test
+
+file=/home/maria_dev/logout.txt
+topics=log-test
+
+# Change the properties in connect-file-source.properties
+
+vi connect-file-source.properties
+
+file=/home/maria_dev/access_log_small.txt
+topic=log-test
+
+# Next download the file access_log_small.txt
+
+wget http://media.sundog-soft.com/hadoop/access_log_small.txt
+
+# Take a little peek at it
+
+less access_log_small.txt
+
+# Lets set up another consumer on the other putty instance to consume the web logs in real time and let us see
+
+pwd
+
+./kafka-console-consumer.sh --bootstrap-server sandbox-hdp.hortonworks.com:6667 --topic log-test
+
+# So now lets kick off our kafka connector
+
+cd /usr/hdp/current/kafka-broker/bin
+
+./connect-standalone.sh ~/connect-standalone.properties ~/connect-file-source.properties ~/connect-file-sink.properties
+
+# Now you should see the putty instance consuming the web logs
+
+# Next open up another putty instance and go to the home directory to open up logout.txt which contains all the web logs being consumed and written to
+
+cd ~/
+less logout.txt
+
+# You can try adding a new line into access_log_small.txt
+
+# It should now be reflected inside logout.txt and the putty instance
+
+# After you are done with it, you can close down all the putty instances, and stop service in ambari

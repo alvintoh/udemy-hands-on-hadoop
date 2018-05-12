@@ -1,0 +1,49 @@
+# Setting up Kafka
+
+# Go to 127.0.0.1:8080 and login as admin and start the service Kafka
+
+# Click on service actions and start Kafka
+
+# Open up Putty instance and login into maria_dev
+
+# cd to Kafka-broker folder
+
+cd /usr/hdp/current/kafka_broker/
+
+# ls to see all the folders situated inside kafka-broker
+
+ls 
+
+cd bin
+
+# So what we are going to do here is to create a topic in Kafka, a topic corresponds to a specific stream of data for Kafka and then we can publish data to that topic and consume it
+
+./kafka-topics.sh --create --zookeeper sandbox.hortonworks.com:2181 --replication-factor 1 --partitions 1 --topic fred
+
+# Kafka depends on Zookeeper to keep track of what topics are created
+
+./kafka-topics.sh --list --zookeeper sandbox.hortonworks.com:2181
+
+# This will give us a list of all the topics that have been created on this instance
+
+# Lets publish some data into it shall we?
+
+./kafka-console-producer.sh --broker-list sandbox-hdp.hortonworks.com:6667 --topic fred
+This is a line of data
+I am sending this one the fred topic
+
+# So now we are going to open up a second window to consume that stream of data
+
+# Login into another window in maria_dev
+
+cd /usr/hdp/current/kafka-broker/bin
+
+./kafka-console-consumer.sh --bootstrap-server sandbox-hdp.hortonworks.com:6667 --topic fred --from-beginning
+
+# Now you should be able to see the messages being consumed by the other putty instance
+
+Here is yet another line
+
+# Try this one the putty instance that is producing the stream of data
+
+# But in the real world this kind of publishing and subscribing to big data sets is very scalable therefore showing you what Kafka is possible of doing
