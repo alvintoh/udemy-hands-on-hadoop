@@ -1,0 +1,34 @@
+# In the home directory of maria_dev
+
+pwd
+
+# Download another configuration file
+
+wget media.sundog-soft.com/hadoop/flumelogs.conf
+
+less flumelogs.conf
+
+# You can see the type and spooldir in conf
+
+# make a directory spool
+
+mkdir spool
+
+# Login to ambari ui 127.0.0.1:8080 with admin, password user
+
+# Go to files view and navigate to user/maria_dev
+
+# create a folder called flume in user/maria_dev/
+
+# Next change the agent configuration in the other putty instance
+
+bin/flume-ng agent --conf conf --conf-file ~/flumelogs.conf --name a1 -Dflume.root.logger=INFO,console
+
+# copy the earlier file that we have access_log_small.txt into the folder spool/fred.txt
+
+# change directory into the spool directory
+
+cd spool
+
+# Go to ambari ui and you can open the logs files inside user/maria_dev/flume/ to see access_log_small.txt information pushed inside
+
