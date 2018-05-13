@@ -31,4 +31,3 @@ bin/flume-ng agent --conf conf --conf-file ~/flumelogs.conf --name a1 -Dflume.ro
 cd spool
 
 # Go to ambari ui and you can open the logs files inside user/maria_dev/flume/ to see access_log_small.txt information pushed inside
-
