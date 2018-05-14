@@ -1,0 +1,60 @@
+# Open up putty instance and login to maria_dev
+
+# Download the spark streaming flume configuration file
+
+wget media.sundog-soft.com/hadoop/sparkstreamingflume.conf
+
+less sparkstreamingflume.conf
+
+# Download the python file for SparkFlume
+
+wget http://media.sundog-soft.com/hadoop/SparkFlume.py
+
+# To see inside the python file
+
+cat SparkFlume.py
+
+pwd
+
+# Make a checkpoint directory and tell Horton works we are using Spark version 2
+
+mkdir checkpoint
+export SPARK_MAJOR_VERSION=2
+
+# To run Spark with the packages and libraries
+
+spark-submit --packages org.apache.spark:spark-streaming-flume_2.11:2.2.0 SparkFlume.py
+
+From Ambari admin menu you an select "Stack and Version" to see Flume or any installed service version to change that for spark-submit --packages org.apache.spark:spark-streaming-flume_2.11:2.2.0
+
+# 2.11 refers to the scala version for spark, and 2.2.0 is for python version
+
+# It should start by taking in data every 1 second
+
+# Open another Putty instance and login to maria_dev to run the configuration agent for Flume
+
+cd /usr/hdp/current/flume-server/
+
+bin/flume-ng agent --conf conf --conf-file ~/sparkstreamingflume.conf --name a1
+
+# Start up a third putty instance with maria_dev
+
+# Download access_.log.txt which is a larger access log of url compared to the previous file
+
+wget http://media.sundog-soft.com/hadoop/access_log.txt
+
+# Copy the file in spool/log22.txt
+
+cp access_log.txt spool/log22.txt
+
+# The first Putty instance should show what urls are being hit over a period of time
+
+cp access_log.txt spool/log23.txt
+
+# Now the numbers should double for the statistics
+
+# After 5 minutes is up, the numbers will go back to 0
+
+# Quit the putty instance by typing exit now
+
+exit

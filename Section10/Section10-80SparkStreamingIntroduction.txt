@@ -1,0 +1,116 @@
+# Spark Streaming : Introduction
+
+# Spark Streaming is processing continuous streams of data in near-real time
+
+# Why Spark Streaming?
+# "Big data" never stops!
+# Analyze data streams in real time, instead of in huge batch jobs daily
+# Analyzing streams of web log data to react to user behavior
+# Analyze streams of real-time sensor data for "Internet of Things" stuff
+
+# Spark Streaming: High Level
+
+# Data Streams -> Receivers -> RDD (Batches of data, For a given time increment) -> Transform & output to other systems
+
+# Spark Streaming is not realtime as it is dealing with what we called micro batches of data but from a practical viewpoint you are breaking data down into like 1 second chunk
+
+# This work can be distributed
+
+# Processing of RDD's can happen in parallel on different work nodes
+
+# DStreams (Discretized Streams)
+
+# Generate the RDD's for each time step, and can produce output at each time step.
+
+# Can be transformed and acted on in much the same way as RDD's
+
+# Or you can access their underlying RDD's if you need them.
+
+# Common stateless transformations on DStreams
+
+# Map
+# Flatmap
+# Filter
+# reduceByKey
+
+# Stateless data
+# You can also maintain a long-lived state on a Dstream
+# For example - running totals, broken down by keys
+# Another example: aggregating session data in web activity
+
+# This works with a technique called Windowing
+# Windowed Transformations
+
+# Allow you to compute results across a longer time period than your batch interval
+
+# Example: top-sellers from the past hour
+- You might process data every one second (the batch interval)
+- But maintain a window of one hour
+
+# The window "slides" as time goes on, to represent batches within the window interval
+
+# Batch interval vs. slide interval vs window interval
+# The batch interval is how often data is captured into a Dstream
+# The slide interval is how often a windowed transformation is computed
+# The window interval is how far back in time the windowed transformation goes
+
+# Example
+# Each batch contains one second of data (the batch interval)
+# We set up a window interval of 3 seconds and a slide interval of 2 seconds
+
+# Time ------------------------------------------------->
+# Each batch is used with the next batch to compute result
+
+# Windowed transformations: code
+
+# The batch interval is set up with your SparkContext:
+
+ssc = StreamingContext(sc, 1)
+
+# You can use reduceByWindow() or reduceByKeyAndWindow() to aggregate data across a longer period of time!
+
+hashtagCounts = hashtagKeyValues.reduceByKeyAndWindow(lambda x, y: x + y, lambda x, y : x - y, 300, 1)
+
+# Structured Streaming
+
+# What is structured streaming?
+
+# A new, higher-level API for streaming structured data
+- Available in Spark 2.0 and 2.1 as an experimental release
+- But it's the future
+
+# Uses DataSets
+- Likes a DataFrame, but with more explicit type information
+- A DataFrame is really a DataSet[Row]
+
+# Imagine a DataFrame that never ends
+# New data just keeps appended to it
+# Your continous application keeps querying updated data as it comes in
+
+# Data stream -> Unbounded data (which new data in stream = new rows appended to input table), Data stream as an unbounded Input Table
+
+# Advantages of Structured Streaming
+# Streaming code looks a lot like the equivalent non-streaming code
+# Structured data allows Spark to represent data more efficiently
+# SQL-style queries allow for query optimization opportunities - and even better performance
+# Interopability with other Spark components based on DataSets
+- MLL is also moving towards DataSets as its primary API.
+# DataSets in general is the direction Spark is moving
+
+# Once you have a SparkSession, you can stream data, query it, and write out the results.
+
+# 2 lines of code to stream in structured JSON log data, count up "action" values for each hour, and write the results to a database.
+
+val inputDF = spark.readStream.json("s3://logs")
+inputDF.groupBy($"action", window($"time", "1 hour")).count().withStream.format("jdbc").start("jdbc:mysql//...")
+
+# Spark Streaming with Flume
+
+# We will set up Flume to use a spooldir source as before
+# But use an Avro sink to connect it to our Spark Streaming job!
+- Use a window to aggregate how often each unique URL appears from our access log.
+
+# Using Avro n this manner is a "push" mechanism to Spark Streaming
+- You can also "pull" data by using a custom sink for Spark Streaming
+
+# Logs -> Source (spooldir) -> Channel (memory) -> Sink (Avro) [Flume] -> Spark Streaming -> Console

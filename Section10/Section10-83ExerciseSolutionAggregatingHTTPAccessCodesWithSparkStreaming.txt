@@ -1,0 +1,23 @@
+# Now to test the solution SparkFlumeExercise.py file
+
+# Open up 3 Putty instance windows on maria_dev
+
+# Run spark on SparkFlumeExercise.py on the first Putty instance
+
+spark-submit --packages org.apache.spark:spark-streaming-flume_2.11:2.2.0 SparkFlumeExercise.py 
+
+# You have change the interval to 5 seconds so now Spark Flume is now running slower
+
+# Now for the second Putty instance, you can open flume-ng agent server to write to the logs of console
+
+cd /usr/hdp/current/flume-server/
+
+bin/flume-ng agent --conf conf --conf-file ~/sparkstreamingflume.conf --name a1
+
+# Now for the third Putty instance, you can copy access_log.txt to let the spooldir flume can read and write to the logs in flume server
+
+cp access_log.txt spool/log30.txt
+
+# Now you should observe a double increase in the numbers
+
+cp access_log.txt spool/log31.txt
