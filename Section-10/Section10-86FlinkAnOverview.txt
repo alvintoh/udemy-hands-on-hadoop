@@ -1,0 +1,39 @@
+# Flink is Another data stream framework
+
+# What is Flink?
+# German for quick and nimble
+# Another stream processing engine - most similiar to Storm
+# Can run on standalone cluster, or on top of YARN or mesos
+# Highly scalable (1000's of nodes)
+# Fault-tolerant
+- Can survive failures while still guaranteeing exactly-once processing
+- Uses "state snapshots" to achieve this
+# Up & coming quickly
+
+# Flink vs. Spark Streaming vs. Storm
+# Flink's faster than Storm
+# Flink offer "real streaming" like Storm (But if you are using Trident with torm, you are using micro-batches)
+# Flink offers a higher-level API likr Trident or Spark, but while still doing real-time streaming
+# Flink has good Scala support, like Spark Streaming
+# Flink has an ecosystem of its own, like Spark
+# Flink can process data based on event times, not when data was received
+- Impressive windowing system
+- This plus real-time streaming and exactly-once semantics is important for financial applications
+
+# But its the youngest of the technologies
+
+# All three are converging it seems
+# Spark Streaming's "Structured Streaming" paves the way for real event-based streaming in Spark
+# Becomes more a question of what fits best in your existing environment
+
+# Flink architecture
+# CEP(Event processing), table, FlinkML, Gelly, Table, DataStream API, DataSet API, Flink Runtime, Standalone cluster, YARN/ Hadoop, AWS / Google Cloud, Local
+
+# Flink can process stream and batch data
+
+# Connectors
+# HDFS
+# Cassandra
+# Kakka
+# Others
+- Elasticsearch, NiFi, Redis, RabbitMQ

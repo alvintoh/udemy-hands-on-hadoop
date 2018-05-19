@@ -1,0 +1,72 @@
+# Log into Putty Instance with maria_dev
+
+# Log into Ambari UI 127.0.0.1:8080 with admin account
+
+# Select Storm service and start it on Ambari
+
+# Go to putty instance and cd to Storm directory
+
+cd /usr/hdp/current/storm-client/
+
+# See what is inside the Storm Client directory
+
+ls
+
+# Navigate towards the starter tutorial for Apache Storm that comes with Horton Works
+
+cd contrib/storm-starter/src/jvm/org/apache/storm/
+
+cd starter
+
+ls 
+
+# Now you should see the sample code that comes with Storm
+
+# Now look inside the code for WordCountTopology.java
+
+vi WordCountTopology.java
+
+# To start up Storm, various Jars libraries for it to run WordCountTopology.java
+
+storm jar /usr/hdp/current/storm-client/contrib/storm-starter/storm-starter-topologies-*.jar org.apache.storm.starter.WordCountTopology wordcount
+
+# You can view the Storm ui on your browser 127.0.0.1:8744
+
+# Need to ensure Nimbus and Storm UI service is running before you can run Storm 
+
+# Start these services in Ambari Ui under services
+
+# To resolve the issue of Jmxetrics.jar is missing from nimbus start server, need to remove the jmxetric param from supervisor.childopts , nimbus.childopts and worker.childopts and restart storm.
+
+# This can be done in Ambari UI 127.0.0.1:8080
+
+# You can see the storm job status in Storm ui in 127.0.0.1:8744
+
+# Under Advanced storm-env in Ambari ui for Storm config, Enable Atlas Hook
+
+# Go Storm UI and you can view the useful statistics on the main page and under the wordcount topology job
+
+#  There are visualization charts and useful functions available in that page
+
+# Storm services will run forever, so if you want to kill it got to go inside the topology job and kill it
+
+# To view the logs for the storm job
+
+pwd
+
+cd /usr/hdp/current/storm-clients/logs/
+
+cd workers-artifacts/
+
+cd wordcount job
+
+# You can see the jobs running under the different ports
+e.g 6700 and 6701
+
+cd 6700
+
+ls -ltr
+
+tail -f worker.log
+
+# You can see some of the output processed here, like how many times is the word counted of

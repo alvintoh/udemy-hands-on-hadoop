@@ -1,0 +1,83 @@
+# Open up Putty instance of Hadoop and login to maria_dev
+
+# Flink does not come with Horton Works yet, so we got to go download it ourselves
+
+# Go to flink.apache.org to download flink
+
+# Go to downloads
+
+# Pick the latest version of Hadoop and download
+
+wget http://www-us.apache.org/dist/flink/flink-1.4.2/flink-1.4.2-bin-hadoop28-scala_2.11.tgz
+
+# Uncompress the file that you have just downloaded
+
+tar -xvf flink-1.4.2-bin-hadoop28-scala_2.11.tgz
+
+cd flink-1.4.2
+
+ls
+
+# Change the configuration for Flink
+
+cd conf
+
+ls
+
+vi flink-conf.yaml
+
+# Change jobmanager.web.port: 8081 to 8082
+
+# This is because that port is open
+
+:wq
+
+cd ..
+
+# To start Flink
+
+./bin/start-local.sh
+
+# To go to the web ui for Flink, go to 127.0.0.1:8082
+
+# We are going to use netcat to type stuff in the console and echo out on TCP port 9000
+
+nc -l 9000
+
+# Open up another HDP instance on Putty on maria_dev
+
+cd flink-1.4.0
+
+# To run the WordCount file 
+
+./bin/flink run examples/streaming/SocketWindowWordCount.jar --port 9000
+
+# Now in the Flink Ui, there should be ajob running
+
+# You can press Overview, Running Jobs, Completed Jobs, Task Managers, Job Manager and Submit new Job
+
+# So now we can feed it data to see what is happening to Flink job
+
+# Open another Hadoop Instance on Putty and login to maria_dev
+
+# On the first Putty instance which start the netcat type this!
+ 
+i am a rock i am an island
+
+# On the third Putty Instance, you can view your logs of the words
+
+cd flink-1.4.0
+
+cd log/
+
+ls
+
+ls -ltr
+
+cat flink-maria_dev-taskmanager-0-sandbox-hdp.hortonworks.com.out
+
+# To stop Flink on the first Putty Instance
+
+./bin/stop-local.sh
+
+# Exit all of the Putty instances
