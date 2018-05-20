@@ -1,0 +1,42 @@
+# Example: Movie Recommendations, Other movies you make like...
+
+# Working backwards
+# Users want to discover movies they haven't yet seen that they might enjoy
+# Their own behavior (ratings, purchases, views) are probably the best predictors
+# As before, availability and partition-tolerance are important. Consistency not so much.
+
+# Cassandra's our first choice
+# But any NoSQL approach would do these days
+
+# How do movie recommendations get into Cassandra?
+# We need to do machine learning
+- Spark MLLib
+- Flink could also be an alternative
+
+# Timeliness requirements need to be thought out
+- Real-time ML is a tall order - do you really need recommendations based on the rating you just left?
+- That kinda would be nice.
+
+# Creative thinking
+$ Pre-computing recommendations for every user
+- Isn't timely
+- Wastes resources
+
+# Item-based collaborative filtering
+- Store movies similiar to other movies (these relationships don't change quickly)
+- At runtime, recommend movies similiar to ones you have liked (based on real-time behavior data)
+
+# So we need something that can quickly look up movies similiar to ones that you have liked at scale
+- Could reside witin web app, but probably want you own service for this
+
+# We also need to quickly get at your past ratings / views / etc.
+
+# OK Then.
+# So we will have some web service to create recommendations on demand
+# It will talk to a fast NoSQL data store wiht movie similarities data
+# And it also needs your past ratings / purchases / etc.
+# Movie similiarities (which are expensive) can be updated infrequently, based on on log data with views / ratings / etc.
+
+# Something like this might work.
+
+# The Web app servers -> Flume -> Spark Streaming -> HBase (user ratings and movie similiarities), HDFS -> Spark / MLLib, Oozie -> Recs service (on YARN/ Slider?) <-> Web app servers

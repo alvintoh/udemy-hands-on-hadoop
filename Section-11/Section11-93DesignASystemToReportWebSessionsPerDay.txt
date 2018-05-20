@@ -1,0 +1,20 @@
+# Exercise: Design Web Analytics
+# Track number of sessions per day on a website
+
+# Your mission...
+# You work for a big website
+# Some manager wants a graph of total number of sessions per day
+# And for some reason they don't want to use an existing service for this!
+
+# Requirements
+# Only run daily based on previous day's activity
+# Sessions are defined as traffic from same IP address within a sliding one hour window
+- Hint: Spark Streaming etc. can handle "stateful" data like this.
+# Let's assume your existing web logs do not have session data in them
+# Data is only used for analytic purposes, internally
+
+# How would you do it?
+# Things to consider?
+- A daily SQL query run automatically is all you really need
+- But this query needs some table that contains session data
+# And that will need to be built up throughout the day

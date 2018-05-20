@@ -2,7 +2,7 @@
 # Real-time stream processing
 
 # What is Storm?
-# Another frameowrk for processing continous streams of data on a cluster
+# Another framework for processing continous streams of data on a cluster
 - Can run on top of YARN (like Spark)
 
 # Works on individual events, not micro-batches (like Spark Streaming does)

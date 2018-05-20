@@ -1,0 +1,54 @@
+# Example: Top Sellers
+# Designing a system to keep track of top-selling items
+
+# What we want to build
+# A system to track and display the top 10 best-selling items on an e-commerce website
+
+# What are our requirements? Work backwards!
+# There are millions of end-users, generating thousands of queries per second
+- It MUST be fast - page latency is important
+- So, we need some distributed NoSQL solution
+- Access pattern is simple: "Give me the current top N sellers in category X"
+
+# Hourly updates probably good enough (consistency not hugely important)
+# Must be highly available (customers don't like broken websites)
+# So - we want partition-tolerance and availability more than consistency
+
+# Sounds like Cassandra
+
+# But how does data get into Cassandra?
+# Spark can talk to Cassandra...
+# And Spark Streaming can add things up over windows
+
+# OK, how does data get into Spark Streaming?
+# Kafka or Flume - either works
+# Flume is purpose-built for HDFS, which so far we haven't say we need
+# But Flume is also purpose-built for log ingestio, so it may be a good choice
+- Log4j interceptor on the servers that process purchases?
+
+# *PII is Personally Identifiable Information
+
+# Don't forget about security
+# Purchase data is sensitive - get a security review
+- Blasting around raw logs that include PII* is probably a really bad idea
+- Strip out data you don't need at the source
+
+# Security considerations may even force you into a totally different design
+- Instead of ingesting logs as they are generated, some intermediate database or publisher may be involved where PII is scrubbed
+
+# So, something like this might work:
+# Interestingly, you *could* build this with Hadoop at all
+
+# Purchase servers -> Zookeeper, Flume -> Spark Streaming -> Cassandra -> Web app servers
+
+# But there's more than one way to do it.
+# Maybe you have an existing purchase database
+- Instead of streaming, hourly batch jobs would also meet your requirements
+- Use Sqoop + Spark -> Cassandra perhaps?
+
+# Maybe you have in-house expertise to leverage
+- Using HBase, MongoDB, or even Redis instead of Cassandra would probably be OK.
+- Using Kafka instead of Flume - totally OK.
+
+# Do people need this data for analytical purposes too?
+- Might consider storing on HDFS in addition to Cassandra.

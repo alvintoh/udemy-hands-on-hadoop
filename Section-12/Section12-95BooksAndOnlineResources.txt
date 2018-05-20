@@ -1,0 +1,9 @@
+# For more resources, can go to apache.org and read up more on the Documentation
+
+# You can also use Community resources such as mailing list
+
+# Stackexchange is also a good resource for asking Hadoop related questions
+
+# It is good to do some self projects, you can get a related role before transferring into Hadoop job role
+
+# After that 1st year, go and try to get transferred to that big data team that uses the Big Data Stack

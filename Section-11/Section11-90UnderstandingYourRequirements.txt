@@ -1,0 +1,55 @@
+# Hadoop Architecture Design, Putting the pieces together
+
+# Working backwards
+# Start with the end user's needs, not from where your data is coming from
+- Sometimes you need to meet in the middle
+
+# What sort of access patterns do you anticipate from your end users?
+- Analytical queries that span large date ranges?
+- Huge amounts of small transactions for very specific rows of data?
+- Both?
+
+# What availability do these users demand?
+
+# What consistency do these users demand?
+
+# Thinking about requirements
+# Just how big is your big data?
+- Do you really need a cluster
+
+# How much internal infrastructure and expertise is available
+- Should you use AWS or something similiar
+- Do systems you already know fit the bill?
+
+# What about data retention?
+- Do you need to keep data around forever, for auditing?
+- Or do you need to purge it often, for privacy
+
+# What about security?
+- Check with Legal
+
+# More requirements to understand
+# Latency
+- How quickly do end users need to get a response?
+# Milliseconds? Then something like HBase or Cassandra will be needed
+
+# Timeliness
+- Can queries be based on day-old data? Minute-old?
+# Oozie-scheduled jobs in Hive / Pig / Spark etc may cut it
+- Or must it be near-time?
+# Use Spark Streaming / Storm / Flink with Kafka or Flume
+
+# Judicious future-proofing
+# Once you deicde where to store your "big data", moving it will be really difficult later on
+- Think carefully before choosing proprietary solutions or cloud-based storage
+
+# Will business analysts want your data in addition to end users (or vice versa?)
+
+# Cheat to win
+# Does your organization have existing components you can use?
+- Don't build a new data warehouse if you already have on!
+- Rebuilding existing technology always has negative business value
+
+# What's the least amount of infrastructure you need to build?
+- Import existing data with Sqoop etc. if you can
+- If relaxing a "requirement" saves lots of time and money - at least ask

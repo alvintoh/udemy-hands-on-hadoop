@@ -1,0 +1,11 @@
+# Exercise: (A) Solution
+# One way to solve the daily session count problem.
+
+# One way to do it.
+# Web servers -> Kafka -> Spark Streaming, Oozie -> Hive <-> HDFS
+
+# There's no "right answer."
+
+# And, it depends on a lot of things
+- Have an existing sessions database that's updated daily? Just use sqoop to get at it
+- In fact, then you might not even need Hive / HDFS

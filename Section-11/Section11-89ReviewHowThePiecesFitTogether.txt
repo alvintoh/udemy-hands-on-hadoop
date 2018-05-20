@@ -1,0 +1,32 @@
+# World of Hadoop
+# There is Query Engines, the Core Hadoop System and External Data Storage
+
+# Core Hadoop System
+- HDFS
+- YARN
+- MapReduce
+- Hive
+- Pig
+- Tez
+- Spark
+- Mesos
+- HBase
+- Storm
+- Sqoop
+- Flume
+- Kafka
+- Zookeeper
+- Oozie
+- Ambari
+
+# External Data Storage
+- MySQL
+- MongoDB
+- Cassandra
+
+# Query Engines
+- Drill
+- Phoenix
+- Hue
+- Presto
+- Zeppelin
