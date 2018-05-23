@@ -1,5 +1,5 @@
-Introduction to Udemy The Ultimate Hands On Hadoop
-=================================================
+Introduction to Udemy The Ultimate Hands On Hadoop - Tame your Big Data!
+========================================================================
 
 ## About this course
 
@@ -18,6 +18,8 @@ Learn and master the most popular big data technologies in this comprehensive co
 * Design real-world systems using the Hadoop ecosystem
 * Learn how your cluster is managed with YARN, Mesos, Zookeeper, Oozie, Zeppelin, and Hue
 * Handle streaming data in real time with Kafka, Flume, Spark Streaming, Flink, and Storm
+
+Understanding Hadoop is a highly valuable skill for anyone working at companies with large amounts of data.
 
 ## Getting Started
 
