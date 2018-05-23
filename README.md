@@ -27,15 +27,15 @@ This repository represents my notes on getting started with this course, with de
 
 My notes also contains various troubleshooting measures that I have came across while doing this course.
 
-To get started, this is the [Udemy course](https://www.udemy.com/the-ultimate-hands-on-hadoop-tame-your-big-data/learn/v4/overview). You will need to buy the Udemy course to get access to the full content and exercises.
+To get started, this is the **[Udemy course](https://www.udemy.com/the-ultimate-hands-on-hadoop-tame-your-big-data/learn/v4/overview)**. You will need to buy the Udemy course to get access to the full content and exercises.
 
-Hadoop Version: HortonWorks Hadoop 2.6.3 running on Cent OS on Virtual Box
+Hadoop Version: **HortonWorks Hadoop 2.6.3 running on Cent OS on Virtual Box**
 
 ## Features
 
-* [HortonWorks SandBox on a VM](https://hortonworks.com/downloads/#data-platform)
-* [HortonWorks Documentation](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.3/index.html)
-* [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* **[HortonWorks SandBox on a VM](https://hortonworks.com/downloads/#data-platform)**
+* **[HortonWorks Documentation](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.3/index.html)**
+* **[Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads)**
 
 ## Issues and Problems
 
